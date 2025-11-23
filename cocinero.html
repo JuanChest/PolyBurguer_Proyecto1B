@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="domeframework.css">
+    <script src="https://kit.fontawesome.com/955adb8bca.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
+        <div class="blanco-texto d-flex">
+            <img class = "imagen-circular-l" src="img/logo.png" alt="Logo.png">
+            <div class="d-flex-column">
+                <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
+                <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
+            </div>
+        </div>
+        <a href="accesopersonal.html" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a> 	
+    </header>
+
+    <section class="dashboard-cocinero p-4">
+        <div class="header-dashboard d-flex space-between align-items-center m-b-2">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-hat-chef rojo-texto h3 m-d-1"></i>
+                <h2 class="m-0 h3 gris-texto">Dashboard de Cocinero</h2>
+            </div>
+            <a href="disponibilidad.html" class="boton borde-none p-1 h6 amarillo-bg negro-texto texto-none centrado box-shadow boton-hover">
+                <i class="fas fa-sliders-h m-d-1"></i> Gestionar Disponibilidad
+            </a>
+        </div>
+
+        <div class="indicadores-flex m-b-4">
+            <div class="indicador amarillo-bg-light borde-redondeado p-2 box-shadow">
+                <p class="gris-texto h6 m-t-0 m-b-1">
+                    <i class="fas fa-clock amarillo-texto h4 m-d-1"></i> Pendientes
+                </p>
+                <h1 class="h1 texto-negrita m-0">1</h1>
+            </div>
+            <div class="indicador azul-bg-light borde-redondeado p-2 box-shadow">
+                <p class="gris-texto h6 m-t-0 m-b-1">
+                    <i class="fas fa-utensils azul-texto h4 m-d-1"></i> En Preparación
+                </p>
+                <h1 class="h1 texto-negrita m-0">0</h1>
+            </div>
+            <div class="indicador verde-bg-light borde-redondeado p-2 box-shadow">
+                <p class="gris-texto h6 m-t-0 m-b-1">
+                    <i class="fas fa-box verde-texto h4 m-d-1"></i> Listos
+                </p>
+                <h1 class="h1 texto-negrita m-0">4</h1>
+            </div>
+        </div>
+
+        <hr class="divisor m-t-4 m-b-4">
+
+        <h2 class="m-b-3 h4 texto-negrita gris-texto">Pedidos Activos</h2>
+        <div class="pedidos-grid">
+            <div class="tarjeta-pedido-activo blanco-bg borde-redondeado p-2 box-shadow">
+                <div class="d-flex space-between m-b-1">
+                    <p class="h6 texto-negrita gris-texto m-0">Pedido #ORD-1763875574499</p>
+                    <span class="etiqueta-estado amarillo-bg gris-texto texto-negrita h7 borde-redondeado p-t-7 p-b-7 p-i-1">Pendiente</span>
+                </div>
+                <p class="h7 gris-texto m-t-0 m-b-1">22/11/25, 12:26</p>
+                <p class="h6 texto-negrita m-t-1 m-b-2 gris-texto">1x PoliBurguer Clásica</p>
+
+                <div class="d-flex space-between align-items-center">
+                    <p class="h5 texto-negrita rojo-texto m-0">Total: $8.99</p>
+                    <a href="" class="texto-none centrado boton borde-none boton-s rojo-bg blanco-texto boton-m">Iniciar Preparación</a>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="divisor m-t-4 m-b-4">
+
+        <h2 class="m-b-3 h4 texto-negrita gris-texto">Pedidos Completados</h2>
+        <div class="completados-grid">
+            <div class="tarjeta-completado verde-bg-light borde-redondeado p-1 box-shadow">
+                <div class="d-flex space-between align-items-start">
+                    <div>
+                        <p class="h6 texto-negrita gris-texto m-t-0 m-b-0">#ORD-17638688793607</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">1 Item(s) - $8.99</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">21/11/25, 21:35</p>
+                    </div>
+                    <i class="fas fa-check-circle verde-texto h5"></i>
+                </div>
+            </div>
+            
+            <div class="tarjeta-completado verde-bg-light borde-redondeado p-1 box-shadow">
+                <div class="d-flex space-between align-items-start">
+                    <div>
+                        <p class="h6 texto-negrita gris-texto m-t-0 m-b-0">#ORD-1763868806581</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">1 Item(s) - $12.99</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">21/11/25, 21:31</p>
+                    </div>
+                    <i class="fas fa-check-circle verde-texto h5"></i>
+                </div>
+            </div>
+            
+            <div class="tarjeta-completado verde-bg-light borde-redondeado p-1 box-shadow">
+                <div class="d-flex space-between align-items-start">
+                    <div>
+                        <p class="h6 texto-negrita gris-texto m-t-0 m-b-0">#ORD-1763868813784</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">1 Item(s) - $8.99</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">21/11/25, 21:33</p>
+                    </div>
+                    <i class="fas fa-check-circle verde-texto h5"></i>
+                </div>
+            </div>
+
+            <div class="tarjeta-completado verde-bg-light borde-redondeado p-1 box-shadow">
+                <div class="d-flex space-between align-items-start">
+                    <div>
+                        <p class="h6 texto-negrita gris-texto m-t-0 m-b-0">#ORD-1763868823639</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">1 Item(s) - $8.99</p>
+                        <p class="h7 gris-texto m-t-0 m-b-0">21/11/25, 21:33</p>
+                    </div>
+                    <i class="fas fa-check-circle verde-texto h5"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
