@@ -1,0 +1,788 @@
+/* *{border: 1px solid red;} */
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+:root {
+    --fuente-principal: 'Istok Web', sans-serif; 
+}
+body {
+    margin: 0px;
+    font-family: var(--fuente-principal);
+}
+
+/* Estilos para el header con flexbox */
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 0px;
+}
+
+.border-box {
+    box-sizing: border-box;
+}
+
+.header-flex ul{
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.header-flex ul li a {
+    text-decoration: none;
+}
+
+.header-flex ul li a:hover {
+    font-weight: bold; 
+    cursor: pointer;
+}
+
+/* Especificar el tamaño del botón/color del fondo/color del texto/tamaño del texto con: boton-x xxx-bg xxx-texto hx respectivamente*/
+.header-flex button {
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.header-flex button:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: brightness(90%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Estilos para el footer con flexbox en columna (Listas Verticales)*/
+.header-flex-column {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 0px 0px;
+    line-height: 0.5;
+}
+
+.header-flex-column ul {
+    list-style: none;
+    text-align: left; 
+    padding: 0;         
+    width: 100%;        
+}
+
+.header-flex-column ul li {
+    margin-bottom: 10px;
+}
+
+.header-flex-column ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.header-flex-column ul li a:hover {
+    display: inline-block;
+    color: #ddd;
+    cursor: pointer;
+}
+
+/* Listas */
+/* Muestra la lista sin decoración y en fila */
+/* Usar la clase .nav-list en un ul ¡¡¡IMPORTANTE!!!*/
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+}
+
+.nav-list li a:hover {
+    display: inline-block;
+    transition: transform 0.2s ease, font-weight 0.2s ease;
+    font-weight: bold; 
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+/* Muestra la lista sin decoración y en columna */
+.nav-list-column {
+    list-style: none;
+    display: flex;        
+    flex-direction: column;
+    padding: 0;         
+    width: 100%;        
+}
+
+.nav-list-column li a {
+    text-decoration: none;
+}
+
+.nav-list-column li a:hover {
+    display: inline-block;
+    transition: transform 0.2s ease, font-weight 0.2s ease;
+    font-weight: bold; 
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+/* Estilos para la imagen circular (Seleccionar un .imagen-circular-xx para seleccionar el tamaño) */
+/* Ejemplo: (class = "imagen-circular imagen-circular-xx" */
+/* Tamaños disponibles: s, m, l, xl */
+.imagen-circular {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.imagen-circular img {
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}   
+
+.imagen-circular-s{
+    width: 50px;
+    height: 50px;
+}
+
+.imagen-circular-m{
+    width: 100px;
+    height: 100px;
+}
+
+.imagen-circular-l{
+    width: 150px;
+    height: 150px;
+}
+
+.imagen-circular-xl{
+    width: 200px;
+    height: 200px;
+}
+
+
+/* Estilos para el footer con flexbox (Listas hortizontales)*/
+.footer-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.footer-flex ul{
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-flex ul li a {
+    text-decoration: none;
+}
+
+.footer-flex ul li a:hover {
+    display: inline-block;
+    transition: transform 0.2s ease, font-weight 0.2s ease;
+    font-weight: bold; 
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Estilos para el footer con flexbox en columna (Listas Verticales)*/
+.footer-flex-column {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-flex-column ul {
+    list-style: none;
+    text-align: center; 
+    width: 100%;        
+}
+
+.footer-flex-column ul li a {
+    text-decoration: none;
+}
+
+.footer-flex-column ul li a:hover {
+    display: inline-block;
+    font-weight: bold; 
+    cursor: pointer;
+}
+
+/* Div con items centrados*/
+.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.izquierda {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.derecha {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.d-flex-start {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+/* Colores principales */
+
+/* BACKGROUND */
+.gris-bg {
+    background-color: gray;
+}
+.rojo-bg {
+    background-color: #d60009;
+}
+
+.azul-bg {
+    background-color: #209dc7;
+}
+
+.amarillo-bg {
+    background-color: #f0b100;
+}
+
+.verde-bg {
+    background-color: green;
+}
+
+.verde-light-bg {
+    background-color: greenyellow;
+}
+
+.morado-bg {
+    background-color: purple;
+}
+
+.negro-bg {
+    background-color: #000;
+}
+
+.blanco-bg {
+    background-color: #FFF;
+}
+
+.rosado-bg {
+    background-color: pink;
+}
+
+.beige-bg {
+    background-color: beige;
+}
+
+.cafe-bg {
+    background-color: brown;
+}
+
+.naranja-bg {
+    background-color: orange
+}
+
+.neutro-bg {
+    background-color: #EEE;
+}
+
+/* TEXTO */
+
+.rojo-texto {
+    color: #c40c07;
+}
+
+.azul-texto {
+    color: #209dc7;
+}
+
+.amarillo-texto {
+    color: #f0b100;
+}
+
+.verde-texto {
+    color: green;
+}
+
+.verde-light-texto {
+    color: greenyellow;
+}
+
+.morado-texto {
+    color: purple;
+}
+
+.negro-texto {
+    color: #000;
+}
+
+
+
+.blanco-texto {
+    color: #FFF;
+}
+
+.rosado-texto {
+    color: pink;
+}
+
+.beige-texto {
+    color: beige;
+}
+
+.cafe-texto {
+    color: brown;
+}
+
+.naranja-texto {
+    color: orange
+}
+.gris-texto{
+    color: gray;
+}
+
+/* Tipo Texto */
+.texto-negrita {
+    font-weight: bold;
+}
+
+.texto-normal {
+    font-weight: normal;
+}
+
+.texto-mayus{
+    text-transform: uppercase;
+}
+
+.texto-tachado {
+    text-decoration: line-through;
+}
+
+.texto-subrayado {
+    text-decoration: underline;
+}
+
+.texto-cursiva {
+    font-style: italic;
+}
+
+.texto-none {
+    text-decoration: none;
+}
+
+/* Alineación del texto */
+.texto-izquierda {
+    text-align: left;
+}
+
+.texto-center {
+    text-align: center;
+}
+
+.texto-derecha {
+    text-align: right;
+}
+
+/* --- Utilidades de Ancho --- */
+
+.ancho-contenido {
+    display: inline-block;
+}
+
+/* Tamaño texto */
+.h1 {
+    font-size: 35px; 
+}
+
+.h2 {
+    font-size: 28px; 
+}
+
+.h3 {
+    font-size: 24px; 
+}
+
+.h4 {
+    font-size: 20px; 
+}
+
+.h5 {
+    font-size: 18px; 
+}
+
+.h6 {
+    font-size: 16px;
+}
+
+/* Estilos de bordes */
+.borde-redondeado {
+    border-radius: 25px;
+}
+
+.borde-linea-cortada{
+    border-style: dashed;
+}
+
+.borde-linea {
+    border-style: solid;
+}
+
+.borde-b {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.borde-punteado {
+    border-style: dotted;
+}
+
+.borde-none{
+    border-style: none;
+}
+
+/* Tamaños de borde */
+.borde-1px {
+    border-width: 1px;
+}
+
+.borde-2px {
+    border-width: 2px;
+}
+
+.borde-3px {
+    border-width: 3px;
+}
+
+.borde-4px {
+    border-width: 4px;
+}
+
+.borde-5px {
+    border-width: 5px;
+}
+
+/* Colores de borde */
+.rojo-borde {
+    border-color: #d60009;
+}
+
+.azul-borde {
+    border-color: #209dc7;
+}
+
+.amarillo-borde {
+    border-color: #f0b100;
+}
+
+.verde-borde {
+    border-color: green;
+}
+
+.verde-light-borde {
+    border-color: greenyellow;
+}
+
+.morado-borde {
+    border-color: purple;
+}
+
+.negro-borde {
+    border-color: #000;
+}
+
+
+
+.blanco-borde {
+    border-color: #FFF;
+}
+
+.rosado-borde {
+    border-color: pink;
+}
+
+.beige-borde {
+    border-color: beige;
+}
+
+.cafe-borde {
+    border-color: brown;
+}
+
+.naranja-borde {
+    border-color: orange;
+}
+
+/* Márgenes y rellenos universales */
+.m-0 { margin: 0; }
+.m-1 { margin: 10px; }
+.m-2 { margin: 16px; }
+
+.p-0 { padding: 0; }
+.p-1 { padding: 10px; }
+.p-2 { padding: 20px; }
+.p-3 { padding: 30px; }
+.p-4 { padding: 60px; }
+
+/* Margin Vertical (Arriba y Abajo) */
+.m-t-0 { margin-top: 0; }
+.m-t-1 { margin-top: 10px; }
+.m-t-2 { margin-top: 16px; }
+
+.m-b-0 { margin-bottom: 0; }
+.m-b-1 { margin-bottom: 10px; }
+.m-b-2 { margin-bottom: 16px; }
+
+/* Margin Horizontal (Izquierda y Derecha) */
+.m-i-0 { margin-left: 0; }
+.m-i-1 { margin-left: 10px; }
+.m-i-2 { margin-left: 16px; }
+
+.m-d-0 { margin-right: 0; }
+.m-d-1 { margin-right: 10px; }
+.m-d-2 { margin-right: 16px; }
+
+/* Padding Vertical (Arriba y Abajo) */
+.p-t-0 { padding-top: 0; }
+.p-t-1 { padding-top: 10px; }
+.p-t-2 { padding-top: 30px; }
+.p-t-3 { padding-top: 60px; }
+
+.p-b-0 { padding-bottom: 0; }
+.p-b-1 { padding-bottom: 10px; }
+.p-b-2 { padding-bottom: 30px; }
+.p-b-3 { padding-bottom: 60px; }
+
+
+/* Padding Hotizontal (Izquierda y Derecha)*/
+.p-i-0 { padding-left: 0; }
+.p-i-1 { padding-left: 10px; }
+.p-i-2 { padding-left: 16px; }
+.p-i-3 { padding-left: 50px; }
+.p-i-4 { padding-left: 100px; }
+.p-i-5 { padding-left: 150px; }
+
+.p-d-0 { padding-right: 0; }
+.p-d-1 { padding-right: 10px; }
+.p-d-2 { padding-right: 16px; }
+.p-d-3 { padding-right: 50px; }
+.p-d-4 { padding-right: 100px; }
+.p-d-5 { padding-right: 150px; }
+
+/* Gap entre elementos flexbox */
+.gap-0 { gap: 0px; }
+.gap-1 { gap: 10px; }
+.gap-2 { gap: 16px; }
+.gap-3 { gap: 20px; }
+.gap-4 { gap: 30px; }
+.gap-5 { gap: 50px; }
+.space-between { justify-content: space-between;}
+.space-around { justify-content: space-around;}
+.space-evenly { justify-content: space-evenly;}
+.center-center { justify-content: center;}
+
+
+/* Tarjetero */
+/* Contenedor de las tarjetas: Responsable de centrar y distribuir */
+/* Tarjetero */
+/* Contenedor de las tarjetas: Responsable de centrar y distribuir */
+.tarjetero{
+    display: flex; 
+    justify-content: flex-start; 
+    gap: 30px; 
+    padding: 20px; 
+    flex-wrap: wrap; 
+}
+
+.tarjeta{
+    width: 300px; 
+    height: auto;
+    text-align: left; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    background-color: #FFF; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    
+    
+    display: flex;
+    flex-direction: column; 
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15); 
+}
+
+
+.tarjeta img{
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    display: block;
+}
+
+
+.tarjeta h1 {
+    margin: 0;
+    font-size: 20px; 
+    font-weight: normal; 
+    padding-left: 16px; 
+    padding-right: 16px; 
+    padding-top: 10px; 
+}
+
+
+.tarjeta p:not(.rojo-texto) { 
+    margin: 0;
+    font-size: 16px; 
+    font-weight: normal; 
+    padding-left: 16px; 
+    padding-right: 16px; 
+    
+    color: #555; 
+    padding-bottom: 5px; 
+}
+
+
+.tarjeta div:last-child {
+    
+    margin-top: auto; 
+    
+    
+    padding-left: 16px; 
+    padding-right: 16px; 
+    padding-bottom: 16px; 
+    
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+
+.tarjeta div:last-child p {
+    color: #c40c07; 
+    font-size: 20px; 
+    font-weight: 700; 
+}
+
+
+.tarjeta div:last-child button {
+    
+    width: 120px; 
+    height: 50px;
+    font-size: 20px; 
+}
+
+/* Tamaños universales */
+/* Width (Ancho) Height (Altura)*/
+/* Usar la clase .width-x o .height-x para seleccionar el tamaño */
+.width-1 { width: 180px;}
+.height-1 { height: 300px;}
+.width-2 { width: 400px;}
+.height-2 { height: 400px;}
+.width-3 { width: 500px;}
+.height-3 { height: 500px;}
+
+/* --- Efectos Hover --- */
+
+/* 1. Para Botones: Cambio suave y elevación */
+.boton-hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-hover:hover {
+    filter: brightness(90%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* 2. Para Texto: Crece y se hace negrita (Zoom) */
+.texto-hover {
+    display: inline-block;
+    transition: transform 0.2s ease, font-weight 0.2s ease;
+}
+
+.texto-hover:hover {
+    font-weight: bold; 
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Boton */
+.boton {
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+.boton:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: brightness(90%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Tamaño botones*/
+/* Seleccionar un .boton-xx para seleccionar el tamaño */
+/* Ejemplo: (class = "boton boton-xx" */
+/* Tamaños disponibles: s, m, l */
+.boton-s {
+    width: 90px;
+    height: 40px;
+}
+
+.boton-m {
+    width: 120px;
+    height: 50px;
+}
+
+.boton-l {
+    width: 150px;
+    height: 60px;
+}
+/* .mostaza-borde{
+    border-color: #EDA234;
+}
+.mostaza-texto{
+    color: #EDA234;
+} */
+/* ocupar el ancho del contenedor */
+.flex-1{
+    flex: 1;
+}
+/* ocupar el alto del contenedor */
+.align-strech{
+    align-items: stretch;
+}
