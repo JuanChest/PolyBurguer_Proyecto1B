@@ -144,7 +144,7 @@ body {
     display: block;
     object-fit: cover;
     object-position: center;
-}   
+}  
 
 .imagen-circular-s{
     width: 50px;
@@ -414,6 +414,10 @@ body {
     display: inline-block;
 }
 
+.ancho-linea {
+    display: block;
+}
+
 /* Tamaño texto */
 .h1 {
     font-size: 35px; 
@@ -439,9 +443,13 @@ body {
     font-size: 16px;
 }
 
+.h7 {
+    font-size: 10px;
+}
+
 /* Estilos de bordes */
 .borde-redondeado {
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .borde-linea-cortada{
@@ -605,6 +613,7 @@ body {
 .space-around { justify-content: space-around;}
 .space-evenly { justify-content: space-evenly;}
 .center-center { justify-content: center;}
+.box-shadow {box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
 
 /* Tarjetero */
@@ -705,7 +714,11 @@ body {
 /* Usar la clase .width-x o .height-x para seleccionar el tamaño */
 .width-1 { width: 180px;}
 .height-1 { height: 300px;}
-.width-2 { width: 400px;}
+.width-2 {
+    width: 350px; 
+    margin-left: auto;
+    margin-right: auto;
+}
 .height-2 { height: 400px;}
 .width-3 { width: 500px;}
 .height-3 { height: 500px;}
@@ -722,6 +735,27 @@ body {
     filter: brightness(90%);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.boton-flotante {
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 1000; 
+    padding: 15px 25px;
+    border-radius: 30px; 
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease; 
+}
+
+.boton-flotante .contador {
+    background-color: #d60009;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 0.8em;
+    margin-left: 5px;
 }
 
 .cursor-pointer {
@@ -772,12 +806,7 @@ body {
     width: 150px;
     height: 60px;
 }
-/* .mostaza-borde{
-    border-color: #EDA234;
-}
-.mostaza-texto{
-    color: #EDA234;
-} */
+
 /* ocupar el ancho del contenedor */
 .flex-1{
     flex: 1;
@@ -785,4 +814,36 @@ body {
 /* ocupar el alto del contenedor */
 .align-strech{
     align-items: stretch;
+
+}
+/* Ocupar todo el ancho */
+.ancho-total {
+    width: 100%; 
+}
+
+/* Nuevo estilo para envolver el ícono y el input */
+.input-con-icono {
+    position: relative; 
+    margin-bottom: 20px; 
+}
+
+.input-con-icono i {
+    position: absolute; 
+    top: 50%; 
+    left: 15px; 
+    transform: translateY(-50%); 
+    color: #888; 
+    font-size: 18px;
+    z-index: 2; 
+}
+
+.input-con-icono input {
+    width: 100%; 
+    padding-left: 45px; 
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    font-size: 16px;
 }
