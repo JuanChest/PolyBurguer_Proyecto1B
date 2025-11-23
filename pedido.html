@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="domeframework.css">
+    <script src="https://kit.fontawesome.com/955adb8bca.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
+        <div class="blanco-texto d-flex">
+            <img class = "imagen-circular-l" src="img/logo.png" alt="Logo.png">
+            <div class="d-flex-column">
+                <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
+                <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
+            </div>
+        </div>
+        <a href="accesopersonal.html" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Acceso Personal</a> 	
+    </header>
+
+    <section>
+        <div>
+            <a class = "p-2 rojo-texto texto-none texto-hover"href="index.html"> <i class="fa-solid fa-arrow-left"></i> Volver</a>
+        </div>
+
+        <div class="contenedor-principal">
+            
+            <div class="tarjeta-pedido">
+                <div class="header-tarjeta-pedido texto-center">
+                    <p class="verde-texto texto-negrita h6"><i class="fas fa-check-circle"></i> ¡Pedido Confirmado!</p>
+                    <h3 class="gris-texto">ID del Pedido</h3>
+                    <h1 class="rojo-texto texto-negrita h2 m-t-0 m-b-1">ORD-1763875574499</h1>
+                    <p class="gris-texto m-t-0 m-b-2 h7">22 nov 2025, 12:26</p>
+                </div>
+    
+                <div class="linea-tiempo d-flex space-around">
+                    <div class="paso">
+                        <div class="circulo rojo-bg">
+                            <i class="fas fa-clock blanco-texto"></i>
+                        </div>
+                        <p class="rojo-texto texto-negrita h7 m-t-1 m-b-0">Pendiente</p>
+                    </div>
+                    <div class="paso">
+                        <div class="circulo neutro-bg gris-borde">
+                            <i class="fas fa-utensils gris-texto"></i>
+                        </div>
+                        <p class="gris-texto h7 m-t-1 m-b-0">En Preparación</p>
+                    </div>
+                    <div class="paso">
+                        <div class="circulo neutro-bg gris-borde">
+                            <i class="fas fa-box gris-texto"></i>
+                        </div>
+                        <p class="gris-texto h7 m-t-1 m-b-0">Listo</p>
+                    </div>
+                </div>
+                
+                <hr class="divisor">
+    
+                <div class="estado-actual amarillo-bg">
+                    <p class="h6"><i class="fas fa-clock texto-negrita"></i> Estado Actual</p>
+                    <h4 class="texto-negrita m-t-0 m-b-1">Pendiente</h4>
+                    <p class="h7 m-t-0 m-b-0 gris-texto">Tu pedido ha sido recibido y está en cola para preparación</p>
+                </div>
+                
+                <hr class="divisor">
+    
+                <h3 class="gris-texto">Detalle del Pedido</h3>
+                <div class="detalle-linea d-flex space-between">
+                    <p class="gris-texto h6 m-t-0 m-b-1">1x PoliBurguer Clásica</p>
+                    <p class="gris-texto h6 m-t-0 m-b-1 texto-negrita">$8.99</p>
+                </div>
+    
+                <hr class="divisor">
+    
+                <div class="total-linea d-flex space-between">
+                    <h3 class="gris-texto m-t-0 m-b-0">Total</h3>
+                    <h3 class="rojo-texto texto-negrita m-t-0 m-b-0">$8.99</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
