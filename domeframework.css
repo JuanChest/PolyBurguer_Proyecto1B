@@ -2,10 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
 :root {
     --fuente-principal: 'Istok Web', sans-serif; 
+    --neutro-bg: #EEE;
 }
 body {
     margin: 0px;
     font-family: var(--fuente-principal);
+    background-color: var(--neutro-bg);
 }
 
 /* Estilos para el header con flexbox */
@@ -363,7 +365,7 @@ body {
     color: orange
 }
 .gris-texto{
-    color: gray;
+    color: #4a5565;
 }
 
 /* Tipo Texto */
@@ -846,4 +848,95 @@ body {
     border-radius: 5px; 
     box-sizing: border-box; 
     font-size: 16px;
+}
+
+/* Contenedor principal del carrito (la tarjeta blanca) */
+.carrito-contenedor {
+    width: 600px; 
+    margin: 30px auto; 
+    background-color: white;
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+}
+
+.carrito-titulo h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px; 
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.carrito-titulo h2 i {
+    color: #d60009; 
+    margin-right: 10px;
+    font-size: 28px;
+}
+
+.producto-carrito {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid #EEE; 
+    border-radius: 15px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.producto-carrito img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.info-precio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    margin-left: auto; 
+}
+
+.info-precio p {
+    font-weight: bold;
+    font-size: 18px; 
+    margin: 0 0 10px 0;
+}
+
+.controles-cantidad {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 90px;
+}
+
+.controles-cantidad button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    color: #d60009; 
+}
+
+.controles-cantidad span {
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 16px;
+    flex-grow: 1; 
+    text-align: center;
+    color: #333;
+}
+
+.resumen-orden div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resumen-orden h3 {
+    font-size: 22px; 
+    font-weight: bold;
 }
