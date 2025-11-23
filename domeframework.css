@@ -15,6 +15,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
     padding: 10px 20px;
     margin: 0px;
 }
@@ -133,6 +134,8 @@ body {
 /* Estilos para la imagen circular (Seleccionar un .imagen-circular-xx para seleccionar el tamaño) */
 /* Ejemplo: (class = "imagen-circular imagen-circular-xx" */
 /* Tamaños disponibles: s, m, l, xl */
+
+
 .imagen-circular {
     border-radius: 50%;
     overflow: hidden;
@@ -151,21 +154,25 @@ body {
 .imagen-circular-s{
     width: 50px;
     height: 50px;
+    object-fit: cover;
 }
 
 .imagen-circular-m{
     width: 100px;
     height: 100px;
+    object-fit: cover;
 }
 
 .imagen-circular-l{
     width: 150px;
     height: 150px;
+    object-fit: cover;
 }
 
 .imagen-circular-xl{
     width: 200px;
     height: 200px;
+    object-fit: cover;
 }
 
 
@@ -939,4 +946,92 @@ body {
 .resumen-orden h3 {
     font-size: 22px; 
     font-weight: bold;
+}
+
+
+/* Contenedor principal para centrar la tarjeta */
+.contenedor-principal {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.tarjeta-pedido {
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.header-tarjeta-pedido {
+    padding-bottom: 20px;
+}
+
+/* Línea de tiempo */
+.linea-tiempo {
+    padding: 10px 0 20px 0;
+    position: relative;
+}
+
+.linea-tiempo:before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 20%; 
+    right: 20%; 
+    height: 2px;
+    background-color: #DDD;
+    z-index: 0;
+}
+
+.paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1; 
+}
+
+.circulo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.gris-borde {
+    border-color: #CCC;
+}
+
+
+.estado-actual {
+    background-color: #fffde7; 
+    border: 1px solid #ffe0b2; 
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.estado-actual i {
+    color: #f0b100; 
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+
+.detalle-linea, .total-linea {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.divisor {
+    border: none;
+    height: 1px;
+    background-color: #EEE;
+    margin: 10px 0;
 }
