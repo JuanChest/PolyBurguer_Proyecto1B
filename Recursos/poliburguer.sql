@@ -13,8 +13,8 @@ create table plato(
 );
 
 insert into plato (nombre_plato, precio, descripcion, imagen, estado) values
-('Poliburguer Clásico', 8.99, 'Poliburguer Clásico', 'poliburguer-clasico.jpg', 1),
-('Poliburguer Vegetariano', 8.99, 'Poliburguer Vegetariano', 'poliburguer-vegetariano.jpg', 1),
-('Poliburguer Pollo', 8.99, 'Poliburguer Pollo', 'poliburguer-pollo.jpg', 1),
-('Poliburguer Carne', 8.99, 'Poliburguer Carne', 'poliburguer-carne.jpg', 1),
-('Poliburguer Jumbo', 8.99, 'Poliburguer Jumbo', 'poliburguer-jumbo.jpg', 1);
+('Poliburguer Clásico', 8.99, 'Poliburguer Clásico', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop', 1),
+('Poliburguer Vegetariano', 8.99, 'Poliburguer Vegetariano', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop', 1),
+('Poliburguer Pollo', 8.99, 'Poliburguer Pollo', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop', 1),
+('Poliburguer Carne', 8.99, 'Poliburguer Carne', 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&fit=crop', 1),
+('Poliburguer Jumbo', 8.99, 'Poliburguer Jumbo', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop', 1);
