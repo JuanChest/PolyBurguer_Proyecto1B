@@ -14,7 +14,7 @@ public class ConexionBDD {
 		String servidor = "localhost:3306";
 		String database = "poliburguer";
 		String usuario = "root";
-		String contrasenia = "root";
+		String contrasenia = "";
 		
 		String url = "jdbc:mysql://" + servidor + "/" + database;
 		
