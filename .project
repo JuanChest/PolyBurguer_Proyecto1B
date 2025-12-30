@@ -36,7 +36,11 @@
 	</natures>
 	<filteredResources>
 		<filter>
+<<<<<<< HEAD
 			<id>1767400966536</id>
+=======
+			<id>1767135033173</id>
+>>>>>>> 9b81a4a (Implementación de cargar menú)
 			<name></name>
 			<type>30</type>
 			<matcher>
