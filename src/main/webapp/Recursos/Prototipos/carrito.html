@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="domeframework.css">
+    <script src="https://kit.fontawesome.com/955adb8bca.js" crossorigin="anonymous"></script>
+    <title>Carrito de pedidos</title>
+</head>
+<body>
+    <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
+        <div class="blanco-texto d-flex">
+            <img class = "imagen-circular-l" src="/Recursos/img/logo.png" alt="Logo.png">
+            <div class="d-flex-column">
+                <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
+                <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
+            </div>
+        </div>
+        <a href="accesopersonal.html" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Acceso Personal</a> 	
+    </header>
+
+    <section class="p-2">
+        <div>
+            <a class = "rojo-texto texto-none texto-hover"href="index.html"> <i class="fa-solid fa-arrow-left"></i> Volver</a>
+        </div>
+        
+        <div class="carrito-contenedor"> 
+            
+            <div class="carrito-titulo">
+                <h2><i class="fa-solid fa-cart-shopping"></i> Tu Carrito</h2>
+            </div>
+            <hr>
+            <div>
+                <div class="producto-carrito">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop" alt="PoliBurguer Clásica">
+                    <div class="d-flex-column">
+                        <h3 class="h5 m-b-0">PoliBurguer Clásica</h3>
+                        <p class="h6 m-t-0 m-b-1">Carne 100% res, lechuga, tomate, cebolla y salsa especial</p>
+                        <div class="controles-cantidad">
+                            <button>-</button>
+                            <span>1</span>
+                            <button>+</button>
+                        </div>
+                    </div>
+                    <div class="info-precio">
+                        <p class="rojo-texto">$8.99</p>
+                        <button class="borde-none blanco-bg rojo-texto h4"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="resumen-orden">
+                <div class="p-t-0 p-b-0 m-t-0 m-b-0 gris-texto">
+                    <p class="p-t-0 p-b-0 m-t-1 m-b-0" >Subtotal</p>
+                    <p class="p-t-0 p-b-0 m-t-1 m-b-0" >$7.82</p>
+                </div>
+                <div class="p-t-0 p-b-0 m-t-0 m-b-0 gris-texto">
+                    <p class="p-t-0 p-b-0 m-t-1 m-b-1" >Impuesto (15%)</p>
+                    <p class="p-t-0 p-b-0 m-t-1 m-b-1" >$1.17</p>
+                </div>
+                <hr>
+                <div class="p-t-1">
+                    <h3 class="m-0">Total</h3>
+                    <h3 class="m-0 rojo-texto">$8.99</h3>
+                </div>
+            </div>
+            <div class="p-t-2">
+                <a href="pedido.html" class="boton d-flex rojo-bg blanco-texto h4 borde-none p-1 texto-none">Confirmar Pedido</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
