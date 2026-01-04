@@ -1,6 +1,9 @@
 package modelo.entidades;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +21,13 @@ public class PlatoMenu {
 	private String imagen;
 	private double precio;
 	private boolean disponible;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "categoria")
+	private Categoria categoria;
+	
+	public PlatoMenu() {
+	}
 
 	public int getIdPlatoMenu() {
 		return idPlatoMenu;
@@ -65,6 +75,14 @@ public class PlatoMenu {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }

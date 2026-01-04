@@ -21,6 +21,7 @@ public class TestPlatos {
             PlatoMenu hamburguesa = new PlatoMenu();
             hamburguesa.setNombre("Burger Especial");
             hamburguesa.setDescripcion("Carne, queso y tocino");
+            hamburguesa.setCategoria(modelo.entidades.Categoria.HAMBURGUESA);
             hamburguesa.setPrecio(8.50);
             hamburguesa.setDisponible(true);
             em.persist(hamburguesa);
