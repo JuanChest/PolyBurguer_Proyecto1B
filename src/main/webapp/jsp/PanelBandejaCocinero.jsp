@@ -26,7 +26,7 @@
                 <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
             </div>
         </div>
-        <a href="accesopersonal.html" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a> 	
+        <a href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarMenu" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a> 	
     </header>
 
     <section class="dashboard-cocinero p-4">
@@ -51,7 +51,7 @@
                         <div class="d-flex space-between align-items-center">
                             <p class="h5 texto-negrita rojo-texto m-0">Total: $${p.totalPedido}</p>
                             <form action="${pageContext.request.contextPath}/PedidosController" method="POST">
-                                <input type="hidden" name="idPedido" value="${p.nroPedido}">
+                                <input type="hidden" name="idPedido" value="${p.idPedido}">
                                 <input type="hidden" name="ruta" value="seleccionarPedido">
                                 <c:choose>
                                     <c:when test="${p.estadoPedido == 'PENDIENTE'}">

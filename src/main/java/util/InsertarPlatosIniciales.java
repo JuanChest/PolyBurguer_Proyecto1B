@@ -8,7 +8,6 @@ import modelo.entidades.PlatoMenu;
 
 /**
  * Clase de utilidad para insertar platos iniciales en la base de datos
- * Ejecutar como aplicación Java standalone
  */
 public class InsertarPlatosIniciales {
 
