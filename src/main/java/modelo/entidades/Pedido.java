@@ -27,7 +27,7 @@ public class Pedido implements Serializable {
 	@Column(name = "id_pedido")
 	private Integer idPedido;
 
-	@Column(name = "nro_pedido", unique = true, length = 7)
+	@Column(name = "nro_pedido", length = 7)
 	private String nroPedido;
 
 	@Column(name = "fecha_creacion")
@@ -119,7 +119,7 @@ public class Pedido implements Serializable {
 	 * @return Número de pedido formateado
 	 */
 	public static String generarNroPedido(int ultimoNumero) {
-		int siguienteNumero = (ultimoNumero % 100) + 1;
+		int siguienteNumero = (ultimoNumero % 10) + 1;
 		return String.format("PD-%04d", siguienteNumero);
 	}
 

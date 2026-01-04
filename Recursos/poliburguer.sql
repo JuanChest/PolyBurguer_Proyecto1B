@@ -2,19 +2,42 @@ drop database if exists poliburguer;
 create database poliburguer;
 use poliburguer;
 
-create table plato(
-    id_plato int primary key auto_increment,
-    nombre_plato varchar(50) not null,
-    precio decimal(10,2) not null,
-    descripcion varchar(255) not null,
-    imagen varchar(255) not null,
-    -- 1 = Activo, 0 = Inactivo
-    estado TINYINT(1) NOT NULL DEFAULT 1
-);
+CREATE TABLE `platos_menu` (
+    `IDPLATOMENU` int(11) NOT NULL,
+    `categoria` varchar(255) DEFAULT NULL,
+    `DESCRIPCION` varchar(255) DEFAULT NULL,
+    `DISPONIBLE` tinyint(1) DEFAULT 0,
+    `IMAGEN` varchar(255) DEFAULT NULL,
+    `NOMBRE` varchar(255) DEFAULT NULL,
+    `PRECIO` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-insert into plato (nombre_plato, precio, descripcion, imagen, estado) values
-('Poliburguer Clásico', 8.99, 'Poliburguer Clásico', 'poliburguer-clasico.jpg', 1),
-('Poliburguer Vegetariano', 8.99, 'Poliburguer Vegetariano', 'poliburguer-vegetariano.jpg', 1),
-('Poliburguer Pollo', 8.99, 'Poliburguer Pollo', 'poliburguer-pollo.jpg', 1),
-('Poliburguer Carne', 8.99, 'Poliburguer Carne', 'poliburguer-carne.jpg', 1),
-('Poliburguer Jumbo', 8.99, 'Poliburguer Jumbo', 'poliburguer-jumbo.jpg', 1);
+--
+-- Insertar datos iniciales
+--
+
+INSERT INTO `platos_menu` (`IDPLATOMENU`, `categoria`, `DESCRIPCION`, `DISPONIBLE`, `IMAGEN`, `NOMBRE`, `PRECIO`) VALUES
+(1, 'HAMBURGUESA', 'Doble carne de res, queso cheddar, bacon crujiente y salsa BBQ', 1, 'hamburguesa-doble.jpg', 'PoliBurguer Doble', 12.99),
+(2, 'HAMBURGUESA', 'Hamburguesa de carne 100% res, lechuga, tomate, cebolla y salsa especial', 1, 'hamburguesa-clasica.jpg', 'PoliBurguer Clásica', 8.99),
+(3, 'BEBIDA', 'Refresco Coca Cola 500ml', 1, 'coca-cola.jpg', 'Coca Cola', 2.5);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `platos_menu`
+--
+ALTER TABLE `platos_menu`
+    ADD PRIMARY KEY (`IDPLATOMENU`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `platos_menu`
+--
+ALTER TABLE `platos_menu`
+    MODIFY `IDPLATOMENU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
