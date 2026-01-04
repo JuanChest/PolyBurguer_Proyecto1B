@@ -3,6 +3,8 @@
 	<persistence-unit name="PolyBurguer_Proyecto1B">
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<class>modelo.entidades.Pedido</class>
+	<class>modelo.entidades.PlatoMenu</class>
+	<class>modelo.entidades.DetallePedido</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/poliburguer"/>
@@ -10,9 +12,10 @@
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             
-            <property name="eclipselink.ddl-generation" value="none" /> 
-            <!-- 
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+            <!-- 
+            <property name="eclipselink.ddl-generation" value="none" /> 
+            
             <property name="eclipselink.ddl-generation" value="create-tables" /> 
             --> 
         </properties>
