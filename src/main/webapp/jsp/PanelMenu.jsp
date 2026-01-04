@@ -41,7 +41,11 @@
                             <p>${plato.descripcion}</p>
                             <div>
                                 <p>$<fmt:formatNumber value="${plato.precio}" pattern="#,##0.00"/></p>
-                                <a href="#" class="boton boton-m rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar</a>
+                                <form action="${pageContext.request.contextPath}/PedidosController" method="POST" style="display:inline;">
+                                    <input type="hidden" name="ruta" value="seleccionarPlato">
+                                    <input type="hidden" name="idPlato" value="${plato.idPlatoMenu}">
+                                    <button type="submit" class="boton boton-m rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar</button>
+                                </form>
                             </div>
                         </div>
                     </c:if>
@@ -76,7 +80,11 @@
                             <p>${plato.descripcion}</p>
                             <div>
                                 <p>$<fmt:formatNumber value="${plato.precio}" pattern="#,##0.00"/></p>
-                                <a href="#" class="boton boton-m rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar</a>
+                                <form action="${pageContext.request.contextPath}/PedidosController" method="POST" style="display:inline;">
+                                    <input type="hidden" name="ruta" value="seleccionarPlato">
+                                    <input type="hidden" name="idPlato" value="${plato.idPlatoMenu}">
+                                    <button type="submit" class="boton boton-m rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar</button>
+                                </form>
                             </div>
                         </div>
                     </c:if>
@@ -105,8 +113,9 @@
         </c:if>
     </section>
     
-    <a href="carrito.html" class="boton-flotante boton amarillo-bg negro-texto borde-redondeado texto-none">
-        Ver Carrito <span class="contador">0</span>
+    <a href="${pageContext.request.contextPath}/PedidosController?ruta=cargarMenu" 
+       class="boton-flotante boton amarillo-bg negro-texto borde-redondeado texto-none">
+        Ver Carrito <span class="contador">${not empty sessionScope.carrito ? sessionScope.carrito.size() : 0}</span>
     </a>
 </body>
 </html>

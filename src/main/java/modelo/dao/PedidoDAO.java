@@ -9,32 +9,43 @@ import jakarta.persistence.Query;
 import modelo.entidades.Pedido;
 
 public class PedidoDAO {
-	
+
 	EntityManager em = null;
-	
-	public PedidoDAO () {
+
+	public PedidoDAO() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyBurguer_Proyecto1B");
 		this.em = emf.createEntityManager();
 	}
 
 	public List<Pedido> obtenerPedidos() {
 		String sentenciaJPQL = "SELECT p FROM Pedido p " +
-                			   "ORDER BY CASE p.estadoPedido " +
-                			   "  WHEN modelo.entidades.EstadoPedido.PENDIENTE THEN 1 " +
-                			   "  WHEN modelo.entidades.EstadoPedido.EN_PREPARACION THEN 2 " +
-                			   "  WHEN modelo.entidades.EstadoPedido.LISTO THEN 3 " +
-                			   "  ELSE 4 END ASC";
+				"ORDER BY CASE p.estadoPedido " +
+				"  WHEN modelo.entidades.EstadoPedido.PENDIENTE THEN 1 " +
+				"  WHEN modelo.entidades.EstadoPedido.EN_PREPARACION THEN 2 " +
+				"  WHEN modelo.entidades.EstadoPedido.LISTO THEN 3 " +
+				"  ELSE 4 END ASC";
 		Query query = em.createQuery(sentenciaJPQL);
 		List<Pedido> resultado = query.getResultList();
 		return resultado;
 	}
 
-	public Pedido obtenerPedido(String nroPedido) {
-	    Pedido p = em.find(Pedido.class, nroPedido); 
-	    return p;
+	public Pedido obtenerPedido(Integer idPedido) {
+		return em.find(Pedido.class, idPedido);
 	}
-	
+
 	public void guardarPedido(Pedido pedidoAGuardar) {
+		em.getTransaction().begin();
+		try {
+			em.persist(pedidoAGuardar);
+			em.getTransaction().commit();
+			System.out.println("✅ Pedido guardado: " + pedidoAGuardar.getNroPedido());
+		} catch (Exception e) {
+			System.err.println("❌ Error al guardar pedido: " + e.getMessage());
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		}
 	}
 
 	public void actualizarEstado(Pedido pedido) {
@@ -49,36 +60,24 @@ public class PedidoDAO {
 			}
 		}
 	}
-	
-//	public Pedido crearPedido(PlatoMenu plato) {
-//		return null;
-//	}
-	
-	public double calcularTotal() {
-		return 0;
-	}
-	
-	public String generarNroPedido() {
-		String nuevoNro = "pb0001";
 
-	    try {
-	        String jpql = "SELECT p.nroPedido FROM Pedido p ORDER BY p.nroPedido DESC";
-	        List<String> resultados = em.createQuery(jpql, String.class)
-	                                    .setMaxResults(1)
-	                                    .getResultList();
+	// public Pedido crearPedido(PlatoMenu plato) {
+	// return null;
+	// }
 
-	        if (!resultados.isEmpty()) {
-	            String ultimoNro = resultados.get(0);
-	            
-	            int numeroActual = Integer.parseInt(ultimoNro.replace("pb", ""));
-	            int siguienteNumero = numeroActual + 1;
-	            
-	            nuevoNro = "pb" + String.format("%04d", siguienteNumero);
-	        }
-	    } catch (Exception e) {
-	        System.out.println("Error al generar ID, usando pb0001 por defecto");
-	    }
-	    
-	    return nuevoNro;
+	/**
+	 * Obtiene el último número de pedido para generar el siguiente
+	 * 
+	 * @return Cantidad total de pedidos registrados
+	 */
+	public int obtenerUltimoNumeroPedido() {
+		try {
+			String jpql = "SELECT COUNT(p) FROM Pedido p";
+			Long count = em.createQuery(jpql, Long.class).getSingleResult();
+			return count.intValue();
+		} catch (Exception e) {
+			System.out.println("Error al obtener último número, usando 0 por defecto");
+			return 0;
+		}
 	}
 }

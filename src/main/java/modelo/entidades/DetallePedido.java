@@ -12,18 +12,18 @@ import jakarta.persistence.Table;
 @Table(name = "Detalle_pedidos")
 public class DetallePedido {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idDetallePedido;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idDetallePedido;
 	private int cantidad;
 	private double subtotal;
-	
-	@ManyToOne
-    @JoinColumn(name = "id_plato_menu") // Clave foránea en la DB
-    private PlatoMenu platoMenu;
 
 	@ManyToOne
-    @JoinColumn(name = "nro_pedido") // Clave foránea que une el detalle al pedido
-    private Pedido pedido;
+	@JoinColumn(name = "id_plato_menu") // Clave foránea en la DB
+	private PlatoMenu platoMenu;
+
+	@ManyToOne
+	@JoinColumn(name = "id_pedido") // Clave foránea que une el detalle al pedido
+	private Pedido pedido;
 
 	public int getIdDetallePedido() {
 		return idDetallePedido;
@@ -64,6 +64,5 @@ public class DetallePedido {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-	
-	
+
 }
