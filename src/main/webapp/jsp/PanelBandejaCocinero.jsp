@@ -20,7 +20,7 @@
 <body>
     <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
         <div class="blanco-texto d-flex">
-            <img class="imagen-circular-l" src="${pageContext.request.contextPath}/Recursos/img/logo.png" alt="Logo">
+            <img class="imagen-circular-l" src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
             <div class="d-flex-column">
                 <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
                 <p class="m-t-0 m-b-0">Sistema de Pedidos</p>

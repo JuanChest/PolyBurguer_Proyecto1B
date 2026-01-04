@@ -36,6 +36,9 @@ public class PedidosController extends HttpServlet {
 			case "seleccionarPedido":
 				this.seleccionarPedido(req, resp);
 				break;
+			case "mostrarMenu":
+				this.mostrarMenu(req, resp);
+				break;
 		}
 	}
 
@@ -86,9 +89,19 @@ public class PedidosController extends HttpServlet {
 	}
 
 	private void mostrarMenu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 1.- Obtener los parámetros
+		// 1.- Obtener los parámetros (no hay parámetros necesarios)
 		// 2.- Hablar con el modelo
+		modelo.dao.PlatoMenuDAO platoDAO = new modelo.dao.PlatoMenuDAO();
+		List<modelo.entidades.PlatoMenu> platos = platoDAO.obtenerPlatos();
+
+		// Filtrar solo platos disponibles
+		List<modelo.entidades.PlatoMenu> platosDisponibles = platos.stream()
+				.filter(modelo.entidades.PlatoMenu::isDisponible)
+				.collect(java.util.stream.Collectors.toList());
+
 		// 3.- Llamar a la vista
+		req.setAttribute("platos", platosDisponibles);
+		req.getRequestDispatcher("jsp/PanelMenu.jsp").forward(req, resp);
 	}
 
 }
