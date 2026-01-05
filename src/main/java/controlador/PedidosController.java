@@ -176,7 +176,7 @@ public class PedidosController extends HttpServlet {
 		req.setAttribute("impuesto", impuesto);
 		req.setAttribute("total", total);
 
-		req.getRequestDispatcher("jsp/PanelCarrito.jsp").forward(req, resp);
+		req.getRequestDispatcher("jsp/PanelPedido.jsp").forward(req, resp);
 	}
 
 	private void incrementarCantidad(HttpServletRequest req, HttpServletResponse resp)
