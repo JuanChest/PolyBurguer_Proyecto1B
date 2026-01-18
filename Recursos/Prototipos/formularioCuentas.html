@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="domeframework.css">
+    <script src="https://kit.fontawesome.com/955adb8bca.js" crossorigin="anonymous"></script>
+    <title>Gestión de Cuentas</title>
+</head>
+
+<body class="neutro-bg">
+    <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
+        <div class="blanco-texto d-flex">
+            <img class="imagen-circular-l" src="/Recursos/img/logo.png" alt="Logo.png">
+            <div class="d-flex-column">
+                <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
+                <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
+            </div>
+        </div>
+        <a href="accesopersonal.html" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar
+            Sesión</a>
+    </header>
+
+    <section class="p-4">
+        <div>
+            <a class="rojo-texto texto-none texto-hover" href="admin.html"> <i class="fa-solid fa-arrow-left"></i>
+                Volver al Panel</a>
+        </div>
+
+        <div class="d-flex centrado m-t-2">
+            <div class="width-2 blanco-bg borde-redondeado box-shadow p-4">
+                <div class="centrado d-flex-column">
+                    <i class="fa-solid fa-user-plus fa-3x rojo-texto m-b-1"></i>
+                    <h2 class="texto-normal h3 m-t-0">Nueva Cuenta</h2>
+                    <p class="gris-texto m-t-0">Registra un nuevo miembro del personal</p>
+                </div>
+                <hr>
+
+                <form action="CuentasController" method="POST" class="d-flex-column">
+                    <div class="m-t-2">
+                        <label class="texto-negrita gris-texto h6">Nombre de Usuario</label>
+                        <div class="input-con-icono">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" placeholder="Ej: cocinero3">
+                        </div>
+                    </div>
+
+                    <div class="m-t-2">
+                        <label class="texto-negrita gris-texto h6">Contraseña Temporal</label>
+                        <div class="input-con-icono">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" placeholder="********">
+                        </div>
+                    </div>
+
+                    <div class="m-t-2">
+                        <label class="texto-negrita gris-texto h6">Rol Asignado</label>
+                        <div class="input-con-icono">
+                            <i class="fa-solid fa-id-card"></i>
+                            <select class="borde-gris p-1 width-100">
+                                <option value="COCINERO">Cocinero</option>
+                                <option value="ADMINISTRADOR">Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex-column m-t-4">
+                        <button type="submit" class="boton rojo-bg blanco-texto borde-none width-100 m-b-1">Crear
+                            Cuenta</button>
+                        <a href="admin.html"
+                            class="boton gris-bg blanco-texto borde-none width-100 centrado texto-none">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
