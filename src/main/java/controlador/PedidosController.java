@@ -40,23 +40,20 @@ public class PedidosController extends HttpServlet {
 			case "seleccionarPedido":
 				this.seleccionarPedido(req, resp);
 				break;
-			case "mostrarMenu":
-				this.mostrarMenu(req, resp);
+			case "solicitarMenu":
+				this.solicitarMenu(req, resp);
 				break;
-			case "seleccionarPlato":
-				this.seleccionarPlato(req, resp);
+			case "agregarPlato":
+				this.agregarPlato(req, resp);
 				break;
-			case "cargarMenu":
-				this.cargarMenu(req, resp);
+			case "mostrarResumenPedido":
+				this.mostrarResumenPedido(req, resp);
 				break;
-			case "incrementarCantidad":
-				this.incrementarCantidad(req, resp);
+			case "modificarCantidad":
+				this.modificarCantidad(req, resp);
 				break;
-			case "decrementarCantidad":
-				this.decrementarCantidad(req, resp);
-				break;
-			case "eliminarDelCarrito":
-				this.eliminarDelCarrito(req, resp);
+			case "eliminarPlato":
+				this.eliminarPlato(req, resp);
 				break;
 			case "confirmarPedido":
 				this.confirmarPedido(req, resp);
@@ -91,7 +88,7 @@ public class PedidosController extends HttpServlet {
 		resp.sendRedirect("PedidosController?ruta=listar");
 	}
 
-	private void mostrarMenu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void solicitarMenu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1.- Obtener los parámetros (no hay parámetros necesarios)
 		// 2.- Hablar con el modelo
 		modelo.dao.PlatoMenuDAO platoDAO = new modelo.dao.PlatoMenuDAO();
@@ -107,16 +104,24 @@ public class PedidosController extends HttpServlet {
 		req.getRequestDispatcher("jsp/PanelMenu.jsp").forward(req, resp);
 	}
 
-	private void seleccionarPlato(HttpServletRequest req, HttpServletResponse resp)
+	private void agregarPlato(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// 1. Obtener parámetros
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
 
-		// 2. Obtener plato del DAO
+		// Verificar disponibilidad del plato
 		modelo.dao.PlatoMenuDAO platoDAO = new modelo.dao.PlatoMenuDAO();
+		if (!platoDAO.verificarDisponibilidad(idPlato)) {
+			// Flujo alterno 4.1: Inventario insuficiente
+			HttpSession session = req.getSession();
+			session.setAttribute("mensaje", "Lo sentimos, el plato solicitado no está disponible en este momento");
+			session.setAttribute("tipoMensaje", "error");
+			resp.sendRedirect("PedidosController?ruta=solicitarMenu");
+			return;
+		}
+
 		modelo.entidades.PlatoMenu plato = platoDAO.obtenerPlato(idPlato);
 
-		// 3. Obtener o crear carrito en sesión
+		// Obtener o crear carrito en sesión
 		HttpSession session = req.getSession();
 		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
 				.getAttribute("carrito");
@@ -125,34 +130,32 @@ public class PedidosController extends HttpServlet {
 			carrito = new ArrayList<>();
 		}
 
-		// 4. Verificar si el plato ya está en el carrito
+		// Verificar si el plato ya está en el carrito
 		boolean platoExiste = false;
 		for (modelo.entidades.DetallePedido detalle : carrito) {
 			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
 				detalle.setCantidad(detalle.getCantidad() + 1);
-				detalle.setSubtotal(detalle.getCantidad() * plato.getPrecio());
+				detalle.calcularSubtotal();
 				platoExiste = true;
 				break;
 			}
 		}
 
-		// 5. Si no existe, crear nuevo DetallePedido
+		// Si no existe, crear nuevo DetallePedido
 		if (!platoExiste) {
 			modelo.entidades.DetallePedido nuevoDetalle = new modelo.entidades.DetallePedido();
 			nuevoDetalle.setPlatoMenu(plato);
 			nuevoDetalle.setCantidad(1);
-			nuevoDetalle.setSubtotal(plato.getPrecio());
+			nuevoDetalle.calcularSubtotal();
 			carrito.add(nuevoDetalle);
 		}
 
-		// 6. Guardar carrito en sesión
 		session.setAttribute("carrito", carrito);
-
-		// 7. Redirigir al menú
-		resp.sendRedirect("PedidosController?ruta=mostrarMenu");
+		resp.sendRedirect("PedidosController?ruta=solicitarMenu");
 	}
 
-	private void cargarMenu(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void mostrarResumenPedido(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
 				.getAttribute("carrito");
@@ -179,51 +182,46 @@ public class PedidosController extends HttpServlet {
 		req.getRequestDispatcher("jsp/PanelPedido.jsp").forward(req, resp);
 	}
 
-	private void incrementarCantidad(HttpServletRequest req, HttpServletResponse resp)
+	private void modificarCantidad(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		String accion = req.getParameter("accion");
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
+
 		HttpSession session = req.getSession();
 		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
 				.getAttribute("carrito");
 
-		for (modelo.entidades.DetallePedido detalle : carrito) {
-			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
-				detalle.setCantidad(detalle.getCantidad() + 1);
-				detalle.setSubtotal(detalle.getCantidad() * detalle.getPlatoMenu().getPrecio());
-				break;
-			}
-		}
-
-		session.setAttribute("carrito", carrito);
-		resp.sendRedirect("PedidosController?ruta=cargarMenu");
-	}
-
-	private void decrementarCantidad(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
-		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
-
-		Iterator<modelo.entidades.DetallePedido> iterator = carrito.iterator();
-		while (iterator.hasNext()) {
-			modelo.entidades.DetallePedido detalle = iterator.next();
-			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
-				if (detalle.getCantidad() > 1) {
-					detalle.setCantidad(detalle.getCantidad() - 1);
-					detalle.setSubtotal(detalle.getCantidad() * detalle.getPlatoMenu().getPrecio());
-				} else {
-					iterator.remove();
+		if ("incrementar".equals(accion)) {
+			// Lógica de incrementar
+			for (modelo.entidades.DetallePedido detalle : carrito) {
+				if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
+					detalle.setCantidad(detalle.getCantidad() + 1);
+					detalle.calcularSubtotal();
+					break;
 				}
-				break;
+			}
+		} else if ("decrementar".equals(accion)) {
+			// Lógica de decrementar
+			Iterator<modelo.entidades.DetallePedido> iterator = carrito.iterator();
+			while (iterator.hasNext()) {
+				modelo.entidades.DetallePedido detalle = iterator.next();
+				if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
+					if (detalle.getCantidad() > 1) {
+						detalle.setCantidad(detalle.getCantidad() - 1);
+						detalle.calcularSubtotal();
+					} else {
+						iterator.remove();
+					}
+					break;
+				}
 			}
 		}
 
 		session.setAttribute("carrito", carrito);
-		resp.sendRedirect("PedidosController?ruta=cargarMenu");
+		resp.sendRedirect("PedidosController?ruta=mostrarResumenPedido");
 	}
 
-	private void eliminarDelCarrito(HttpServletRequest req, HttpServletResponse resp)
+	private void eliminarPlato(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
 		HttpSession session = req.getSession();
@@ -233,7 +231,7 @@ public class PedidosController extends HttpServlet {
 		carrito.removeIf(detalle -> detalle.getPlatoMenu().getIdPlatoMenu() == idPlato);
 
 		session.setAttribute("carrito", carrito);
-		resp.sendRedirect("PedidosController?ruta=cargarMenu");
+		resp.sendRedirect("PedidosController?ruta=mostrarResumenPedido");
 	}
 
 	private void confirmarPedido(HttpServletRequest req, HttpServletResponse resp)
@@ -243,7 +241,7 @@ public class PedidosController extends HttpServlet {
 				.getAttribute("carrito");
 
 		if (carrito == null || carrito.isEmpty()) {
-			resp.sendRedirect("PedidosController?ruta=mostrarMenu");
+			resp.sendRedirect("PedidosController?ruta=solicitarMenu");
 			return;
 		}
 
@@ -256,11 +254,11 @@ public class PedidosController extends HttpServlet {
 		double total = nuevoPedido.calcularTotal(carrito);
 		nuevoPedido.setTotalPedido(total);
 
-		// 3. Generar número de pedido
+		// 3. Generar número de atención
 		modelo.dao.PedidoDAO pedidoDAO = new modelo.dao.PedidoDAO();
 		int ultimoNumero = pedidoDAO.obtenerUltimoNumeroPedido();
-		String nroPedido = modelo.entidades.Pedido.generarNroPedido(ultimoNumero);
-		nuevoPedido.setNroPedido(nroPedido);
+		String nroAtencion = modelo.entidades.Pedido.generarNroAtencion(ultimoNumero);
+		nuevoPedido.setNroPedido(nroAtencion);
 
 		// 4. Asociar detalles al pedido
 		for (modelo.entidades.DetallePedido detalle : carrito) {

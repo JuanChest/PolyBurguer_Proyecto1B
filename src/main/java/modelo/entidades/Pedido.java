@@ -112,14 +112,14 @@ public class Pedido implements Serializable {
 	}
 
 	/**
-	 * Genera el número de pedido con formato PD-XXXX
+	 * Genera el número de atención con formato PD-XXXX
 	 * El contador se reinicia cada 100 pedidos (PD-0001 a PD-0100)
 	 * 
 	 * @param ultimoNumero Último número generado
-	 * @return Número de pedido formateado
+	 * @return Número de atención formateado
 	 */
-	public static String generarNroPedido(int ultimoNumero) {
-		int siguienteNumero = (ultimoNumero % 10) + 1;
+	public static String generarNroAtencion(int ultimoNumero) {
+		int siguienteNumero = (ultimoNumero % 100) + 1;
 		return String.format("PD-%04d", siguienteNumero);
 	}
 

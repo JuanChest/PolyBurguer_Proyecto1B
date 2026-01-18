@@ -28,4 +28,15 @@ public class PlatoMenuDAO {
 		return plato;
 	}
 
+	/**
+	 * Verifica si un plato está disponible
+	 * 
+	 * @param idPlato ID del plato a verificar
+	 * @return true si el plato existe y está disponible, false en caso contrario
+	 */
+	public boolean verificarDisponibilidad(int idPlato) {
+		PlatoMenu plato = obtenerPlato(idPlato);
+		return plato != null && plato.isDisponible();
+	}
+
 }

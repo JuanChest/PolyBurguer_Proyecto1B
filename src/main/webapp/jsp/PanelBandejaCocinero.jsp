@@ -26,7 +26,7 @@
                 <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
             </div>
         </div>
-        <a href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarMenu" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a> 	
+        <a href="${pageContext.request.contextPath}/PedidosController?ruta=solicitarMenu" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a> 	
     </header>
 
     <section class="dashboard-cocinero p-4">

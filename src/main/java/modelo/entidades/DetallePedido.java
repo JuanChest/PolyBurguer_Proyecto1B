@@ -65,4 +65,13 @@ public class DetallePedido {
 		this.pedido = pedido;
 	}
 
+	/**
+	 * Calcula el subtotal del detalle multiplicando cantidad por precio del plato
+	 */
+	public void calcularSubtotal() {
+		if (this.platoMenu != null) {
+			this.subtotal = this.cantidad * this.platoMenu.getPrecio();
+		}
+	}
+
 }
