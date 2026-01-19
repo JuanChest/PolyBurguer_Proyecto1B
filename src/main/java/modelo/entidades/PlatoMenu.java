@@ -25,7 +25,7 @@ public class PlatoMenu {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "categoria")
 	private Categoria categoria;
-	
+
 	public PlatoMenu() {
 	}
 
@@ -76,11 +76,11 @@ public class PlatoMenu {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
-	
+
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}

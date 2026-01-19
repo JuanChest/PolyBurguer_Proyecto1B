@@ -67,7 +67,7 @@ public class PedidoDAO {
 
 	/**
 	 * Obtiene el último número de pedido para generar el siguiente
-	 * 
+	 *
 	 * @return Cantidad total de pedidos registrados
 	 */
 	public int obtenerUltimoNumeroPedido() {

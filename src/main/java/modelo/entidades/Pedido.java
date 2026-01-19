@@ -99,7 +99,7 @@ public class Pedido implements Serializable {
 
 	/**
 	 * Calcula el total del pedido sumando los subtotales de todos los detalles
-	 * 
+	 *
 	 * @param detalles Lista de detalles del pedido
 	 * @return Total del pedido
 	 */
@@ -114,7 +114,7 @@ public class Pedido implements Serializable {
 	/**
 	 * Genera el número de pedido con formato PD-XXXX
 	 * El contador se reinicia cada 100 pedidos (PD-0001 a PD-0100)
-	 * 
+	 *
 	 * @param ultimoNumero Último número generado
 	 * @return Número de pedido formateado
 	 */

@@ -39,7 +39,7 @@
                 <h2 class="borde-linea borde-4px borde-b ancho-contenido amarillo-borde">Hamburguesas</h2>
                 <div class="tarjetero">
                     <c:forEach var="plato" items="${platos}">
-                        <c:if test="${plato.categoria.name() == 'HAMBURGUESAS'}">
+                        <c:if test="${plato.categoria == 'HAMBURGUESA'}">
                             <div class="tarjeta verde-bg-light">
                                 <img src="${pageContext.request.contextPath}/img/platos/${plato.imagen}" 
                                      alt="${plato.nombre}">
@@ -72,7 +72,7 @@
                 <h2 class="borde-linea borde-4px borde-b ancho-contenido amarillo-borde">Bebidas</h2>
                 <div class="tarjetero">
                     <c:forEach var="plato" items="${platos}">
-                        <c:if test="${plato.categoria.name() == 'BEBIDAS'}">
+                        <c:if test="${plato.categoria == 'BEBIDA'}">
                             <div class="tarjeta verde-bg-light">
                                 <img src="${pageContext.request.contextPath}/img/platos/${plato.imagen}" 
                                      alt="${plato.nombre}">

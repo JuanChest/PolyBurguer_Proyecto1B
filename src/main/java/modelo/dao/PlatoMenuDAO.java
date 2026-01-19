@@ -33,16 +33,16 @@ public class PlatoMenuDAO {
 		try {
 			EntityTransaction transaction = em.getTransaction();
 			transaction.begin();
-			
+
 			PlatoMenu platoGestionado = em.find(PlatoMenu.class, plato.getIdPlatoMenu());
-			
+
 			if (platoGestionado != null) {
 				platoGestionado.setDisponible(nuevoEstado);
 				em.merge(platoGestionado);
 				transaction.commit();
 				return true;
 			}
-			
+
 			transaction.commit();
 			return false;
 		} catch (Exception e) {
@@ -60,10 +60,10 @@ public class PlatoMenuDAO {
 		try {
 			EntityTransaction transaction = em.getTransaction();
 			transaction.begin();
-			
+
 			em.persist(nuevoPlato);
 			transaction.commit();
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,22 +80,22 @@ public class PlatoMenuDAO {
 		try {
 			EntityTransaction transaction = em.getTransaction();
 			transaction.begin();
-			
+
 			PlatoMenu platoEnBD = em.find(PlatoMenu.class, platoModificado.getIdPlatoMenu());
-			
+
 			if (platoEnBD != null) {
 				platoEnBD.setNombre(platoModificado.getNombre());
 				platoEnBD.setDescripcion(platoModificado.getDescripcion());
 				platoEnBD.setPrecio(platoModificado.getPrecio());
 				platoEnBD.setCategoria(platoModificado.getCategoria());
 				platoEnBD.setDisponible(platoModificado.isDisponible());
-				
+
 				em.merge(platoEnBD);
 				transaction.commit();
-				
+
 				return true;
 			}
-			
+
 			transaction.rollback();
 			return false;
 		} catch (Exception e) {
@@ -113,15 +113,15 @@ public class PlatoMenuDAO {
 		try {
 			EntityTransaction transaction = em.getTransaction();
 			transaction.begin();
-			
+
 			PlatoMenu platoEnBD = em.find(PlatoMenu.class, platoAEliminar.getIdPlatoMenu());
-			
+
 			if (platoEnBD != null) {
 				em.remove(platoEnBD);
 				transaction.commit();
 				return true;
 			}
-			
+
 			transaction.rollback();
 			return false;
 		} catch (Exception e) {
