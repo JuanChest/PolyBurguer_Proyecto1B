@@ -64,16 +64,26 @@ public class CuentasController extends HttpServlet {
 	    String contrasenia = req.getParameter("contrasenia");
 
 	    Cocinero nuevoCocinero = new Cocinero(nombre, apellido, cedula, contrasenia);
-	    
 	    CocineroDAO dao = new CocineroDAO();
-	    try {
-	        dao.procesarSolicitud(nuevoCocinero); 
-	        System.out.println("DEBUG: Guardado exitoso para " + nombre);
-	    } catch (Exception e) {
-	        e.printStackTrace();
+
+	    if (dao.validarUsuario(nuevoCocinero)) {
+	        try {
+	            dao.procesarSolicitud(nuevoCocinero); 
+	            System.out.println("DEBUG: Guardado exitoso para " + nombre);
+	            resp.sendRedirect(req.getContextPath() + "/CuentasController?ruta=listarCuentas");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("DEBUG: La cédula " + cedula + " ya está registrada.");
+	        
+	        req.setAttribute("mensajeError", "Error: La cédula " + cedula + " ya se encuentra registrada.");
+	        
+	        req.setAttribute("nombreAnterior", nombre);
+	        req.setAttribute("apellidoAnterior", apellido);
+	        
+	        req.getRequestDispatcher("jsp/FormularioCuentas.jsp").forward(req, resp);
 	    }
-	    
-	    resp.sendRedirect(req.getContextPath() + "/CuentasController?ruta=listarCuentas");
 	}
 	
 	private void desactivarUsuario(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

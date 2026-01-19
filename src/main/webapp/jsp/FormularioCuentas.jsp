@@ -34,6 +34,13 @@
 		            <h2 class="texto-normal h3 m-t-0 m-b-0">Nueva Cuenta</h2>
 		            <p class="gris-texto m-t-1">Registra un nuevo miembro del personal</p>
 		        </div>
+		
+		        <% if (request.getAttribute("mensajeError") != null) { %>
+		            <div class="m-t-2 p-2 rojo-bg blanco-texto borde-redondeado centrado">
+		                <i class="fa-solid fa-triangle-exclamation m-r-1"></i>
+		                <span class="h6"><%= request.getAttribute("mensajeError") %></span>
+		            </div>
+		        <% } %>
 		        
 		        <hr class="m-t-2 m-b-2">
 		
@@ -42,12 +49,16 @@
 		
 		            <div class="m-b-2">
 		                <label class="d-block texto-negrita gris-texto h6 m-b-1">Nombre</label>
-		                <input type="text" name="nombre" class="borde-gris p-2 width-100" placeholder="Ej: Juan" required>
+		                <input type="text" name="nombre" class="borde-gris p-2 width-100" 
+		                       placeholder="Ej: Juan" required
+		                       value="<%= (request.getAttribute("nombreAnterior") != null) ? request.getAttribute("nombreAnterior") : "" %>">
 		            </div>
 		
 		            <div class="m-b-2">
 		                <label class="d-block texto-negrita gris-texto h6 m-b-1">Apellido</label>
-		                <input type="text" name="apellido" class="borde-gris p-2 width-100" placeholder="Ej: Pérez" required>
+		                <input type="text" name="apellido" class="borde-gris p-2 width-100" 
+		                       placeholder="Ej: Pérez" required
+		                       value="<%= (request.getAttribute("apellidoAnterior") != null) ? request.getAttribute("apellidoAnterior") : "" %>">
 		            </div>
 		
 		            <div class="m-b-2">
