@@ -9,29 +9,28 @@ import jakarta.persistence.Query;
 import modelo.entidades.Cocinero;
 
 public class CocineroDAO {
-	
+
 	EntityManager em = null;
-	
+
 	public CocineroDAO() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PolyBurguer_Proyecto1B");
 		this.em = emf.createEntityManager();
 	}
-	
+
 	public List<Cocinero> obtenerCuentas() {
 	    return em.createQuery("SELECT c FROM Cocinero c", Cocinero.class)
 	             .getResultList();
 	}
-	
+
 	public boolean validarUsuario(Cocinero usuario) {
-		String sentenciaJPQL = "SELECT c FROM Cocinero c WHERE c.cedula = :cedula AND c.contrasenia = :contrasenia AND c.estado = true";
-		Query query = em.createQuery(sentenciaJPQL);
-		query.setParameter("cedula", usuario.getCedula());
-		query.setParameter("contrasenia", usuario.getContrasenia());
-		
-		List<Cocinero> resultado = query.getResultList();
-		return !resultado.isEmpty();
+	    String sentenciaJPQL = "SELECT c FROM Cocinero c WHERE c.cedula = :cedula";
+	    Query query = em.createQuery(sentenciaJPQL);
+	    query.setParameter("cedula", usuario.getCedula());
+
+	    List<Cocinero> resultado = query.getResultList();
+	    return resultado.isEmpty();
 	}
-	
+
 	public Cocinero buscarPorId(int id) {
 		try {
 	        return em.find(Cocinero.class, id);
@@ -41,27 +40,29 @@ public class CocineroDAO {
 	     }
 	}
 
-	public void cambiarEstado(Cocinero c) {
+	public void cambiarEstado(Cocinero usuario) {
 	    try {
 	        em.getTransaction().begin();
-	        em.merge(c); 
+	        em.merge(usuario);
 	        em.getTransaction().commit();
 	    } catch (Exception e) {
-	        if (em.getTransaction().isActive()) em.getTransaction().rollback();
+	        if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 	        e.printStackTrace();
 	    }
 	}
-	
-	public void procesarSolicitud(Cocinero c) {
+
+	public void procesarSolicitud(Cocinero usuario) {
 	    try {
-	        em.getTransaction().begin(); // Iniciamos la transacción
-	        em.persist(c);               // Guardamos el objeto
-	        em.getTransaction().commit(); // Confirmamos en la base de datos
+	        em.getTransaction().begin();
+	        em.persist(usuario);
+	        em.getTransaction().commit();
 	    } catch (Exception e) {
 	        if (em.getTransaction().isActive()) {
-	            em.getTransaction().rollback(); // Si hay error, cancelamos
+	            em.getTransaction().rollback();
 	        }
 	        e.printStackTrace();
 	    }
 	}
-}	
+}

@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 @DiscriminatorValue("COCINERO")
 public class Cocinero extends Usuario {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     public Cocinero() {
         super();

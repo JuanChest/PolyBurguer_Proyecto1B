@@ -1,6 +1,5 @@
 package test;
 
-import java.beans.PersistenceDelegate;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
