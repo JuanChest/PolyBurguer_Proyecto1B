@@ -1,4 +1,4 @@
-package servicios;
+package recursos;
 
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class PlatoRest {
     }
 
     @POST
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON) 
     @Produces(MediaType.APPLICATION_JSON)
     public boolean crear(PlatoMenu nuevo) {
@@ -40,14 +41,16 @@ public class PlatoRest {
     }
 
     @PUT
+    @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean actualizar(PlatoMenu modificado) {
+    public boolean actualizar(@PathParam("id") int id, PlatoMenu modificado) {
+        modificado.setIdPlatoMenu(id); 
         return dao.guardarCambiosPlato(modificado);
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean eliminar(@PathParam("id") int id) {
         PlatoMenu plato = new PlatoMenu();
