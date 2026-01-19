@@ -1212,3 +1212,9 @@ input:checked + .slider:before {
     width: 100%;
     border-collapse: collapse;
 }
+
+.fondo-none {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
