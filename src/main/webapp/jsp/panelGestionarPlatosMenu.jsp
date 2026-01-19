@@ -435,7 +435,7 @@
                 </div>
                 
                 <div class="form-grupo">
-                    <label for="precio">Precio (en pesos) *</label>
+                    <label for="precio">Precio (en dólares USD) *</label>
                     <input type="number" id="precio" name="precio" step="0.01" min="0.01" required placeholder="Ej: 45.99">
                 </div>
                 
@@ -483,7 +483,7 @@
                     </div>
                     
                     <div class="form-grupo">
-                        <label for="precioMod">Precio (en pesos) *</label>
+                        <label for="precioMod">Precio (en dólares USD) *</label>
                         <input type="number" id="precioMod" name="precio" step="0.01" min="0.01" value="${plato.precio}" required>
                     </div>
                     
