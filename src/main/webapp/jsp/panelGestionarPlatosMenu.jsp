@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -9,12 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Platos del Menú - PolyBurguer</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/domeframework.css">
+    <script src="https://kit.fontawesome.com/955adb8bca.js" crossorigin="anonymous"></script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            body { 
+                font-family: 'Arial', sans-serif; 
+                background: #f7f7f7; /* off-white */ 
+                min-height: 100vh; 
+                padding: 0; 
+                margin: 0; 
         }
         
         .contenedor {
@@ -108,6 +111,48 @@
             margin-top: 0;
             font-size: 1.8em;
         }
+
+        /* Cards estilo similar a prototipo */
+        .tarjeta {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            padding: 12px;
+            width: 300px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tarjeta img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .tarjeta h1 { color: #c82333; font-size: 1.1em; margin: 0; }
+        .tarjeta p { color: #666; margin: 0; }
+        .tarjeta .precio { color: #c82333; font-weight: bold; }
+
+        .tarjetero { display: flex; flex-wrap: wrap; gap: 18px; }
+
+        .tarjeta .acciones {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tarjeta .acciones a,
+        .tarjeta .acciones button { background: transparent; border: none; cursor: pointer; font-size: 1.05em; }
+
+        .tarjeta .acciones .editar { color: #007bff; }
+        .tarjeta .acciones .eliminar { color: #dc3545; }
         
         .form-grupo {
             margin-bottom: 20px;
@@ -334,10 +379,31 @@
     </style>
 </head>
 <body>
+    <!-- Top navigation (red) -->
+    <header class="header-flex rojo-bg p-t-2 p-b-2 p-i-4 p-d-4">
+        <div class="blanco-texto d-flex">
+            <img class="imagen-circular-l" src="${pageContext.request.contextPath}/img/logo.png" alt="Logo">
+            <div class="d-flex-column">
+                <h1 class="m-t-0 m-b-0 texto-negrita">PoliBurger</h1>
+                <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
+            </div>
+        </div>
+        <a href="${pageContext.request.contextPath}/CuentasController?ruta=cerrarSesion" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a>
+    </header>
+
     <div class="contenedor">
-        <div class="encabezado">
-            <h1>🍔 Gestionar Platos del Menú</h1>
-            <p>Panel de administración para crear, modificar y eliminar platos</p>
+        <!-- Info usuario + acción -->
+        <div class="p-i-2 p-d-2 d-flex space-between" style="align-items:center;">
+            <div class="izquierda p-i-4 d-flex">
+                <i class="fa-solid fa-user-tie fa-2xl rojo-texto p-2"></i>
+                <div>
+                    <h1 class="m-0 p-0 texto-normal h2">Panel de Administración</h1>
+                    <h1 class="m-0 p-0 texto-normal h6">Bienvenido, admin</h1>
+                </div>
+            </div>
+            <div>
+                <a href="#" onclick="mostrarFormularioCrear(); return false;" class="boton boton-l p-i-2 p-d-2 rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar Producto</a>
+            </div>
         </div>
         
         <c:if test="${not empty mensaje}">
@@ -352,10 +418,7 @@
             </div>
         </c:if>
         
-        <div class="botones-principales">
-            <button onclick="mostrarFormularioCrear()">➕ Crear Nuevo Plato</button>
-            <a href="${pageContext.request.contextPath}/MenuController?ruta=verMenu" class="boton-volver">👁️ Ver Menú</a>
-        </div>
+        <!-- botones principales movidos arriba (Add Product a la derecha) -->
         
         <!-- Formulario para crear nuevo plato -->
         <div id="formularioCrear" class="seccion-form" style="display: none;">
@@ -383,6 +446,11 @@
                         <option value="HAMBURGUESA">Hamburguesa</option>
                         <option value="BEBIDA">Bebida</option>
                     </select>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="imagen">URL de la imagen (o nombre de archivo en /img/platos)</label>
+                    <input type="text" id="imagen" name="imagen" placeholder="https://... o plato.jpg">
                 </div>
                 
                 <div class="form-grupo checkbox-grupo">
@@ -422,13 +490,17 @@
                     <div class="form-grupo">
                         <label for="categoriaMod">Categoría *</label>
                         <select id="categoriaMod" name="categoria" required>
-                            <option value="HAMBURGUESA" ${plato.categoria == 'HAMBURGUESA' ? 'selected' : ''}>Hamburguesa</option>
-                            <option value="BEBIDA" ${plato.categoria == 'BEBIDA' ? 'selected' : ''}>Bebida</option>
+                            <option value="HAMBURGUESA" <c:if test="${plato.categoria == 'HAMBURGUESA'}">selected</c:if>>Hamburguesa</option>
+                            <option value="BEBIDA" <c:if test="${plato.categoria == 'BEBIDA'}">selected</c:if>>Bebida</option>
                         </select>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="imagenMod">URL de la imagen (o nombre de archivo en /img/platos)</label>
+                        <input type="text" id="imagenMod" name="imagen" value="${plato.imagen}" placeholder="https://... o plato.jpg">
                     </div>
                     
                     <div class="form-grupo checkbox-grupo">
-                        <input type="checkbox" id="disponibleMod" name="disponible" ${plato.disponible ? 'checked' : ''}>
+                        <input type="checkbox" id="disponibleMod" name="disponible" <c:if test="${plato.disponible}">checked</c:if>>
                         <label for="disponibleMod">Disponible</label>
                     </div>
                     
@@ -440,64 +512,75 @@
             </div>
         </c:if>
         
-        <!-- Lista de platos -->
+        <!-- Lista de platos (tarjetas, similar a prototipo admin.html) -->
         <div class="seccion-lista">
-            <h2>📋 Lista de Platos</h2>
-            
+            <h2>📋 Productos del Menú</h2>
+
             <c:choose>
                 <c:when test="${not empty platos && platos.size() > 0}">
-                    <table class="tabla-platos">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%">ID</th>
-                                <th style="width: 15%">Nombre</th>
-                                <th style="width: 30%">Descripción</th>
-                                <th style="width: 10%">Precio</th>
-                                <th style="width: 12%">Categoría</th>
-                                <th style="width: 12%">Estado</th>
-                                <th style="width: 11%">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div>
+                        <h1 class="borde-linea borde-4px borde-b ancho-contenido amarillo-borde">Hamburguesas</h1>
+                        <div class="tarjetero">
                             <c:forEach var="plato" items="${platos}">
-                                <tr>
-                                    <td><strong>${plato.idPlatoMenu}</strong></td>
-                                    <td>${plato.nombre}</td>
-                                    <td>
+                                <c:if test="${plato.categoria == 'HAMBURGUESA'}">
+                                    <div class="tarjeta">
                                         <c:choose>
-                                            <c:when test="${plato.descripcion.length() > 50}">
-                                                <span title="${plato.descripcion}">${plato.descripcion.substring(0, 50)}...</span>
+                                            <c:when test="${fn:startsWith(plato.imagen, 'http')}">
+                                                <img src="${plato.imagen}" alt="${plato.nombre}">
                                             </c:when>
                                             <c:otherwise>
-                                                ${plato.descripcion}
+                                                <img src="${pageContext.request.contextPath}/img/platos/${plato.imagen}" alt="${plato.nombre}">
                                             </c:otherwise>
                                         </c:choose>
-                                    </td>
-                                    <td><strong>$<fmt:formatNumber value="${plato.precio}" type="number" minFractionDigits="2"/></strong></td>
-                                    <td>${plato.categoria}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${plato.disponible}">
-                                                <span class="estado-disponible">Disponible</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="estado-no-disponible">No Disponible</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <div class="botones-acciones">
-                                            <a href="${pageContext.request.contextPath}/MenuController?ruta=formularioModificar&idPlato=${plato.idPlatoMenu}" class="boton-accion boton-editar">✏️ Editar</a>
-                                            <form method="POST" action="${pageContext.request.contextPath}/MenuController?ruta=eliminarPlato" style="display: inline; margin: 0;">
-                                                <input type="hidden" name="idPlato" value="${plato.idPlatoMenu}">
-                                                <button type="submit" class="boton-accion boton-eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este plato?');">🗑️ Eliminar</button>
-                                            </form>
+                                        <h1>${plato.nombre}</h1>
+                                        <p>${plato.descripcion}</p>
+                                        <div>
+                                            <p class="precio">$${plato.precio}</p>
+                                            <div class="acciones">
+                                                <a href="${pageContext.request.contextPath}/MenuController?ruta=formularioPlato&idPlato=${plato.idPlatoMenu}" class="editar"><i class="fa-solid fa-pen"></i></a>
+                                                <form method="POST" action="${pageContext.request.contextPath}/MenuController?ruta=eliminarPlato" style="display:inline;">
+                                                    <input type="hidden" name="idPlato" value="${plato.idPlatoMenu}">
+                                                    <button type="submit" class="eliminar" onclick="return confirm('¿Eliminar este plato?');"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </c:if>
                             </c:forEach>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+
+                    <div class="m-t-4">
+                        <h1 class="borde-linea borde-4px borde-b ancho-contenido amarillo-borde">Bebidas</h1>
+                        <div class="tarjetero">
+                            <c:forEach var="plato" items="${platos}">
+                                <c:if test="${plato.categoria == 'BEBIDA'}">
+                                    <div class="tarjeta">
+                                        <c:choose>
+                                            <c:when test="${fn:startsWith(plato.imagen, 'http')}">
+                                                <img src="${plato.imagen}" alt="${plato.nombre}">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/img/platos/${plato.imagen}" alt="${plato.nombre}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <h1>${plato.nombre}</h1>
+                                        <p>${plato.descripcion}</p>
+                                        <div>
+                                            <p class="precio">$${plato.precio}</p>
+                                            <div class="acciones">
+                                                <a href="${pageContext.request.contextPath}/MenuController?ruta=formularioPlato&idPlato=${plato.idPlatoMenu}" class="editar"><i class="fa-solid fa-pen"></i></a>
+                                                <form method="POST" action="${pageContext.request.contextPath}/MenuController?ruta=eliminarPlato" style="display:inline;">
+                                                    <input type="hidden" name="idPlato" value="${plato.idPlatoMenu}">
+                                                    <button type="submit" class="eliminar" onclick="return confirm('¿Eliminar este plato?');"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </c:when>
                 <c:otherwise>
                     <div class="sin-platos">

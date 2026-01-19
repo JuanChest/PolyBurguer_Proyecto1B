@@ -44,6 +44,12 @@ public class MenuController extends HttpServlet {
 			case "gestionarDisponibilidad":
 				this.accederGestionDisponibilidadPlato(req, resp);
 				break;
+				case "formularioPlato":
+					this.formularioModificarPlato(req, resp);
+					break;
+			case "gestionarMenu":
+				this.accederModuloGestionMenu(req, resp);
+				break;
 			case "cambiarDisponibilidad":
 				this.cambiarDisponibilidadPlato(req, resp);
 				break;
@@ -130,7 +136,7 @@ public class MenuController extends HttpServlet {
 			List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
 			req.setAttribute("platos", platos);
 			req.setAttribute("mensaje", "");
-			req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+			req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al acceder al módulo de gestión");
@@ -145,7 +151,7 @@ public class MenuController extends HttpServlet {
 			String nombre = req.getParameter("nombre") != null ? req.getParameter("nombre").trim() : "";
 			String descripcion = req.getParameter("descripcion") != null ? req.getParameter("descripcion").trim() : "";
 			String precioStr = req.getParameter("precio") != null ? req.getParameter("precio").trim() : "0";
-			String categoriaStr = req.getParameter("categoria") != null ? req.getParameter("categoria") : "HAMBURGUESAS";
+			String categoriaStr = req.getParameter("categoria") != null ? req.getParameter("categoria") : "HAMBURGUESA";
 
 			if (nombre.isEmpty() || descripcion.isEmpty()) {
 				setErrorYRecargar(req, resp, "El nombre y descripción son obligatorios");
@@ -164,7 +170,8 @@ public class MenuController extends HttpServlet {
 			nuevoPlato.setPrecio(precio);
 			nuevoPlato.setCategoria(Categoria.valueOf(categoriaStr));
 			nuevoPlato.setDisponible(true);
-			nuevoPlato.setImagen("plato.jpg");
+			String imagen = req.getParameter("imagen") != null && !req.getParameter("imagen").isEmpty() ? req.getParameter("imagen") : "plato.jpg";
+			nuevoPlato.setImagen(imagen);
 
 			boolean guardado = platoMenuDAO.guardarNuevoPlato(nuevoPlato);
 
@@ -172,7 +179,7 @@ public class MenuController extends HttpServlet {
 				List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
 				req.setAttribute("platos", platos);
 				req.setAttribute("mensaje", "Plato creado exitosamente");
-				req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+				req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 			} else {
 				setErrorYRecargar(req, resp, "Error al guardar el plato");
 			}
@@ -203,8 +210,11 @@ public class MenuController extends HttpServlet {
 				return;
 			}
 
+			// Asegurar que la vista también reciba la lista de platos para mostrar la grilla
+			List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
+			req.setAttribute("platos", platos);
 			req.setAttribute("plato", plato);
-			req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+			req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID de plato inválido");
@@ -254,6 +264,8 @@ public class MenuController extends HttpServlet {
 			plato.setPrecio(precio);
 			plato.setCategoria(Categoria.valueOf(categoriaStr));
 			plato.setDisponible(disponibleStr != null);
+			String imagenMod = req.getParameter("imagen") != null && !req.getParameter("imagen").isEmpty() ? req.getParameter("imagen") : plato.getImagen();
+			plato.setImagen(imagenMod);
 
 			boolean actualizado = platoMenuDAO.guardarCambiosPlato(plato);
 
@@ -261,7 +273,7 @@ public class MenuController extends HttpServlet {
 				List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
 				req.setAttribute("platos", platos);
 				req.setAttribute("mensaje", "Plato modificado exitosamente");
-				req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+				req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 			} else {
 				setErrorYRecargar(req, resp, "Error al actualizar el plato");
 			}
@@ -298,7 +310,7 @@ public class MenuController extends HttpServlet {
 				List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
 				req.setAttribute("platos", platos);
 				req.setAttribute("mensaje", "Plato eliminado exitosamente");
-				req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+				req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 			} else {
 				setErrorYRecargar(req, resp, "Error al eliminar el plato");
 			}
@@ -330,7 +342,7 @@ public class MenuController extends HttpServlet {
 			List<PlatoMenu> platos = platoMenuDAO.obtenerPlatos();
 			req.setAttribute("platos", platos);
 			req.setAttribute("error", mensaje);
-			req.getRequestDispatcher("/jsp/panelGestionarPlatosMenu.jsp").forward(req, resp);
+			req.getRequestDispatcher("/jsp/PanelGestionarPlatosMenu.jsp").forward(req, resp);
 		} catch (Exception e) {
 			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, mensaje);
 		}

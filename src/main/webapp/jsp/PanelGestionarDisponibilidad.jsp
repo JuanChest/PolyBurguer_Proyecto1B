@@ -26,7 +26,7 @@
 
     <section class="p-4">
         <div>
-            <a class="p-b-2 rojo-texto texto-none texto-hover" href="${pageContext.request.contextPath}/PedidosController?ruta=panelCocinero">
+            <a class="p-b-2 rojo-texto texto-none texto-hover" href="${pageContext.request.contextPath}/PedidosController?ruta=listar">
                 <i class="fa-solid fa-arrow-left"></i> Volver
             </a>
         </div>
