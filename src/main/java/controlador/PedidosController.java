@@ -40,7 +40,7 @@ public class PedidosController extends HttpServlet {
 			case "seleccionarPedido":
 				this.seleccionarPedido(req, resp);
 				break;
-			case "solicitarMenu":
+			case "mostrarMenu":
 				this.solicitarMenu(req, resp);
 				break;
 			case "agregarPlato":
@@ -115,7 +115,7 @@ public class PedidosController extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.setAttribute("mensaje", "Lo sentimos, el plato solicitado no está disponible en este momento");
 			session.setAttribute("tipoMensaje", "error");
-			resp.sendRedirect("PedidosController?ruta=solicitarMenu");
+			resp.sendRedirect("PedidosController?ruta=mostrarMenu");
 			return;
 		}
 
@@ -151,7 +151,7 @@ public class PedidosController extends HttpServlet {
 		}
 
 		session.setAttribute("carrito", carrito);
-		resp.sendRedirect("PedidosController?ruta=solicitarMenu");
+		resp.sendRedirect("PedidosController?ruta=mostrarMenu");
 	}
 
 	private void mostrarResumenPedido(HttpServletRequest req, HttpServletResponse resp)
@@ -241,7 +241,7 @@ public class PedidosController extends HttpServlet {
 				.getAttribute("carrito");
 
 		if (carrito == null || carrito.isEmpty()) {
-			resp.sendRedirect("PedidosController?ruta=solicitarMenu");
+			resp.sendRedirect("PedidosController?ruta=mostrarMenu");
 			return;
 		}
 

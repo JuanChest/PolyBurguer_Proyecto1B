@@ -21,7 +21,7 @@
                             <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
                         </div>
                     </div>
-                    <a href="${pageContext.request.contextPath}/PedidosController?ruta=listar"
+                    <a href="${pageContext.request.contextPath}/LoginController?ruta=mostrarFormulario"
                         class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Acceso Personal</a>
                 </header>
 
@@ -144,6 +144,25 @@
                     Ver Carrito <span class="contador">${not empty sessionScope.carrito ? sessionScope.carrito.size() :
                         0}</span>
                 </a>
+                <script>
+                    // Mantener posición del scroll al recargar la página
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Restaurar posición del scroll si existe
+                        const scrollPos = sessionStorage.getItem('scrollPosition');
+                        if (scrollPos) {
+                            window.scrollTo(0, parseInt(scrollPos));
+                            sessionStorage.removeItem('scrollPosition');
+                        }
+
+                        // Guardar posición antes de enviar cualquier formulario
+                        const forms = document.querySelectorAll('form');
+                        forms.forEach(form => {
+                            form.addEventListener('submit', function () {
+                                sessionStorage.setItem('scrollPosition', window.scrollY);
+                            });
+                        });
+                    });
+                </script>
             </body>
 
             </html>

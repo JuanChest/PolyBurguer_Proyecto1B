@@ -21,14 +21,14 @@
                             <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
                         </div>
                     </div>
-                    <a href="${pageContext.request.contextPath}/PedidosController?ruta=listar"
+                    <a href="${pageContext.request.contextPath}/LoginController?ruta=mostrarFormulario"
                         class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Acceso Personal</a>
                 </header>
 
                 <section class="p-2">
                     <div>
                         <a class="rojo-texto texto-none texto-hover"
-                            href="${pageContext.request.contextPath}/PedidosController?ruta=solicitarMenu">
+                            href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarMenu">
                             <i class="fa-solid fa-arrow-left"></i> Volver
                         </a>
                     </div>
@@ -43,7 +43,7 @@
                             <c:when test="${empty carrito}">
                                 <div style="text-align: center; padding: 40px;">
                                     <p class="h4 gris-texto">Tu carrito está vacío</p>
-                                    <a href="${pageContext.request.contextPath}/PedidosController?ruta=solicitarMenu"
+                                    <a href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarMenu"
                                         class="boton rojo-bg blanco-texto borde-none p-1 texto-none">
                                         Ver Menú
                                     </a>
@@ -133,6 +133,25 @@
                         </c:choose>
                     </div>
                 </section>
+                <script>
+                    // Mantener posición del scroll al modificar cantidades o eliminar
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Restaurar posición del scroll si existe
+                        const scrollPos = sessionStorage.getItem('scrollPosition');
+                        if (scrollPos) {
+                            window.scrollTo(0, parseInt(scrollPos));
+                            sessionStorage.removeItem('scrollPosition');
+                        }
+
+                        // Guardar posición antes de enviar cualquier formulario
+                        const forms = document.querySelectorAll('form');
+                        forms.forEach(form => {
+                            form.addEventListener('submit', function () {
+                                sessionStorage.setItem('scrollPosition', window.scrollY);
+                            });
+                        });
+                    });
+                </script>
             </body>
 
             </html>
