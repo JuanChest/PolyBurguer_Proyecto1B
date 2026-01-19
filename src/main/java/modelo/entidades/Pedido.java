@@ -126,7 +126,7 @@ public class Pedido implements Serializable {
 	/**
 	 * Calcula el total del pedido sumando subtotales de detalles
 	 * Sobrecarga para usar la lista interna del pedido
-	 * 
+	 *
 	 * @return Total del pedido
 	 */
 	public double calcularTotal() {
@@ -136,7 +136,7 @@ public class Pedido implements Serializable {
 	/**
 	 * Agrega un detalle al pedido y recalcula el total
 	 * Si el plato ya existe en el pedido, incrementa su cantidad
-	 * 
+	 *
 	 * @param nuevoDetalle Detalle a agregar
 	 */
 	public void agregarDetalle(DetallePedido nuevoDetalle) {
@@ -164,7 +164,7 @@ public class Pedido implements Serializable {
 
 	/**
 	 * Modifica la cantidad de un detalle específico
-	 * 
+	 *
 	 * @param idPlato       ID del plato a modificar
 	 * @param nuevaCantidad Nueva cantidad
 	 * @return true si se modificó, false si no se encontró
@@ -187,7 +187,7 @@ public class Pedido implements Serializable {
 
 	/**
 	 * Elimina un detalle del pedido
-	 * 
+	 *
 	 * @param idPlato ID del plato a eliminar
 	 * @return true si se eliminó, false si no se encontró
 	 */

@@ -20,7 +20,7 @@ public class UsuarioDAO {
 
     /**
      * Valida las credenciales de un usuario por cédula y contraseña
-     * 
+     *
      * @param cedula      Número de cédula del usuario
      * @param contrasenia Contraseña del usuario
      * @return Usuario autenticado o null si las credenciales son inválidas
@@ -40,7 +40,7 @@ public class UsuarioDAO {
 
     /**
      * Verifica si la cuenta del usuario está activa
-     * 
+     *
      * @param usuario Usuario a verificar
      * @return true si está activo, false en caso contrario
      */
@@ -50,7 +50,7 @@ public class UsuarioDAO {
 
     /**
      * Determina el rol del usuario
-     * 
+     *
      * @param usuario Usuario autenticado
      * @return "COCINERO" o "ADMINISTRADOR"
      */

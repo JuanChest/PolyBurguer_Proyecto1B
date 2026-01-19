@@ -43,13 +43,14 @@
                             <p class="gris-texto centrado">Ver y gestionar pedidos activos</p>
                         </a>
 
-                        <!-- Opción 2: Gestión de Disponibilidad (Por implementar) -->
-                        <div class="tarjeta-opcion blanco-bg borde-redondeado box-shadow p-4 centrado d-flex-column"
-                            style="width: 300px; opacity: 0.5; cursor: not-allowed;">
-                            <i class="fa-solid fa-utensils fa-3x gris-texto m-b-2"></i>
+                        <!-- Opción 2: Gestión de Disponibilidad -->
+                        <a href="${pageContext.request.contextPath}/MenuController?ruta=gestionarDisponibilidad"
+                            class="tarjeta-opcion blanco-bg borde-redondeado box-shadow p-4 centrado d-flex-column texto-none"
+                            style="width: 300px;">
+                            <i class="fa-solid fa-utensils fa-3x rojo-texto m-b-2"></i>
                             <h3 class="h4 gris-texto">Gestión de Disponibilidad</h3>
-                            <p class="gris-texto centrado">Próximamente</p>
-                        </div>
+                            <p class="gris-texto centrado">Activar/Desactivar productos</p>
+                        </a>
                     </div>
                 </div>
             </section>

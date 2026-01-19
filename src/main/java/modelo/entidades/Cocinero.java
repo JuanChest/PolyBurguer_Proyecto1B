@@ -19,7 +19,7 @@ public class Cocinero extends Usuario {
 
     /**
      * Retorna el rol del usuario
-     * 
+     *
      * @return "COCINERO"
      */
     public String determinarRol() {

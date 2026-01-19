@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="d-flex-column">
-                    <p class="blanco-texto m-0 h6">Bienvenido, ${sessionScope.nombreUsuario}</p>
+                    <p class="blanco-texto m-0 h6">${sessionScope.nombreUsuario}</p>
                     <a href="${pageContext.request.contextPath}/LoginController?ruta=cerrarSesion"
                         class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a>
                 </div>

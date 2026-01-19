@@ -388,20 +388,25 @@
                 <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
             </div>
         </div>
-        <a href="${pageContext.request.contextPath}/CuentasController?ruta=cerrarSesion" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a>
+        <div class="d-flex-column">
+            <p class="blanco-texto m-0 h6">Bienvenido, ${sessionScope.nombreUsuario}</p>
+            <a href="${pageContext.request.contextPath}/LoginController?ruta=cerrarSesion" class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">Cerrar Sesión</a>
+        </div>
     </header>
 
     <div class="contenedor">
         <!-- Info usuario + acción -->
         <div class="p-i-2 p-d-2 d-flex space-between" style="align-items:center;">
-            <div class="izquierda p-i-4 d-flex">
+            <div class="izquierda p-i-4 d-flex" style="align-items:center; gap:12px;">
+                <a href="${pageContext.request.contextPath}/jsp/PanelAdministrador.jsp" class="rojo-texto texto-none texto-hover">
+                    <i class="fa-solid fa-arrow-left"></i> Volver
+                </a>
                 <i class="fa-solid fa-user-tie fa-2xl rojo-texto p-2"></i>
                 <div>
                     <h1 class="m-0 p-0 texto-normal h2">Panel de Administración</h1>
-                    <h1 class="m-0 p-0 texto-normal h6">Bienvenido, admin</h1>
                 </div>
             </div>
-            <div>
+            <div style="display:flex; gap:10px; align-items:center;">
                 <a href="#" onclick="mostrarFormularioCrear(); return false;" class="boton boton-l p-i-2 p-d-2 rojo-bg blanco-texto borde-none texto-none centrado">+ Agregar Producto</a>
             </div>
         </div>

@@ -18,15 +18,18 @@
                 <p class="m-t-0 m-b-0">Sistema de Pedidos</p>
             </div>
         </div>
-        <a href="${pageContext.request.contextPath}/CuentasController?ruta=cerrarSesion" 
-           class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">
-            Cerrar Sesión
-        </a>
+        <div class="d-flex-column">
+            <p class="blanco-texto m-0 h6">Bienvenido, ${sessionScope.nombreUsuario}</p>
+            <a href="${pageContext.request.contextPath}/LoginController?ruta=cerrarSesion" 
+               class="boton borde-none p-1 h6 amarillo-bg rojo-texto texto-none centrado">
+                Cerrar Sesión
+            </a>
+        </div>
     </header>
 
     <section class="p-4">
         <div>
-            <a class="p-b-2 rojo-texto texto-none texto-hover" href="${pageContext.request.contextPath}/PedidosController?ruta=listar">
+            <a class="p-b-2 rojo-texto texto-none texto-hover" href="${pageContext.request.contextPath}/jsp/PanelCocinero.jsp">
                 <i class="fa-solid fa-arrow-left"></i> Volver
             </a>
         </div>

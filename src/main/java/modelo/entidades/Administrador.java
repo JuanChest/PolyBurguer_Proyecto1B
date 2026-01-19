@@ -19,7 +19,7 @@ public class Administrador extends Usuario {
 
     /**
      * Retorna el rol del usuario
-     * 
+     *
      * @return "ADMINISTRADOR"
      */
     public String determinarRol() {

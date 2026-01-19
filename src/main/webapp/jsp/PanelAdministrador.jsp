@@ -43,13 +43,14 @@
                             <p class="gris-texto centrado">Crear y administrar cuentas del personal</p>
                         </a>
 
-                        <!-- Opción 2: Gestionar Platos del Menú (Por implementar) -->
-                        <div class="tarjeta-opcion blanco-bg borde-redondeado box-shadow p-4 centrado d-flex-column"
-                            style="width: 300px; opacity: 0.5; cursor: not-allowed;">
-                            <i class="fa-solid fa-burger fa-3x gris-texto m-b-2"></i>
+                        <!-- Opción 2: Gestionar Platos del Menú -->
+                        <a href="${pageContext.request.contextPath}/MenuController?ruta=gestionarPlatosMenu"
+                            class="tarjeta-opcion blanco-bg borde-redondeado box-shadow p-4 centrado d-flex-column texto-none"
+                            style="width: 300px;">
+                            <i class="fa-solid fa-burger fa-3x rojo-texto m-b-2"></i>
                             <h3 class="h4 gris-texto">Gestionar Platos del Menú</h3>
-                            <p class="gris-texto centrado">Próximamente</p>
-                        </div>
+                            <p class="gris-texto centrado">Crear, modificar y eliminar productos del menú</p>
+                        </a>
                     </div>
                 </div>
             </section>
