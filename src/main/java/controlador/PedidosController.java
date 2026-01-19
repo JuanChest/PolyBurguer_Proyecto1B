@@ -1,9 +1,6 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -108,7 +105,7 @@ public class PedidosController extends HttpServlet {
 			throws ServletException, IOException {
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
 
-		// Verificar disponibilidad del plato
+		// 1. Verificar disponibilidad del plato
 		modelo.dao.PlatoMenuDAO platoDAO = new modelo.dao.PlatoMenuDAO();
 		if (!platoDAO.verificarDisponibilidad(idPlato)) {
 			// Flujo alterno 4.1: Inventario insuficiente
@@ -119,66 +116,42 @@ public class PedidosController extends HttpServlet {
 			return;
 		}
 
+		// 2. Obtener plato
 		modelo.entidades.PlatoMenu plato = platoDAO.obtenerPlato(idPlato);
 
-		// Obtener o crear carrito en sesión
+		// 3. Crear DetallePedido
+		modelo.entidades.DetallePedido nuevoDetalle = new modelo.entidades.DetallePedido();
+		nuevoDetalle.setPlatoMenu(plato);
+		nuevoDetalle.setCantidad(1);
+		nuevoDetalle.calcularSubtotal(); // DetallePed do calcula su subtotal
+
+		// 4. Obtener o crear Pedido en sesión
 		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
+		modelo.entidades.Pedido pedidoActual = (modelo.entidades.Pedido) session.getAttribute("pedidoEnCurso");
 
-		if (carrito == null) {
-			carrito = new ArrayList<>();
+		if (pedidoActual == null) {
+			pedidoActual = new modelo.entidades.Pedido(); // Se crea desde el primer item
 		}
 
-		// Verificar si el plato ya está en el carrito
-		boolean platoExiste = false;
-		for (modelo.entidades.DetallePedido detalle : carrito) {
-			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
-				detalle.setCantidad(detalle.getCantidad() + 1);
-				detalle.calcularSubtotal();
-				platoExiste = true;
-				break;
-			}
-		}
+		// 5. Agregar detalle al pedido (encapsulado - Pedido maneja su lógica)
+		pedidoActual.agregarDetalle(nuevoDetalle); // agregarDetalle() ya llama calcularTotal()
 
-		// Si no existe, crear nuevo DetallePedido
-		if (!platoExiste) {
-			modelo.entidades.DetallePedido nuevoDetalle = new modelo.entidades.DetallePedido();
-			nuevoDetalle.setPlatoMenu(plato);
-			nuevoDetalle.setCantidad(1);
-			nuevoDetalle.calcularSubtotal();
-			carrito.add(nuevoDetalle);
-		}
-
-		session.setAttribute("carrito", carrito);
+		// 6. Guardar pedido en sesión
+		session.setAttribute("pedidoEnCurso", pedidoActual);
 		resp.sendRedirect("PedidosController?ruta=mostrarMenu");
 	}
 
 	private void mostrarResumenPedido(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
+		modelo.entidades.Pedido pedidoActual = (modelo.entidades.Pedido) session.getAttribute("pedidoEnCurso");
 
-		if (carrito == null) {
-			carrito = new ArrayList<>();
+		if (pedidoActual == null || pedidoActual.estaVacio()) {
+			pedidoActual = new modelo.entidades.Pedido(); // Crear pedido vacío para evitar nulls
 		}
 
-		// Calcular totales
-		double subtotal = 0.0;
-		for (modelo.entidades.DetallePedido detalle : carrito) {
-			subtotal += detalle.getSubtotal();
-		}
-
-		double impuesto = subtotal * 0.15;
-		double total = subtotal + impuesto;
-
-		// Enviar datos a la vista
-		req.setAttribute("carrito", carrito);
-		req.setAttribute("subtotal", subtotal);
-		req.setAttribute("impuesto", impuesto);
-		req.setAttribute("total", total);
-
+		// Pedido ya tiene su total calculado - no necesitamos calcular manualmente
+		req.setAttribute("pedido", pedidoActual);
 		req.getRequestDispatcher("jsp/PanelPedido.jsp").forward(req, resp);
 	}
 
@@ -188,92 +161,84 @@ public class PedidosController extends HttpServlet {
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
 
 		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
+		modelo.entidades.Pedido pedidoActual = (modelo.entidades.Pedido) session.getAttribute("pedidoEnCurso");
 
-		if ("incrementar".equals(accion)) {
-			// Lógica de incrementar
-			for (modelo.entidades.DetallePedido detalle : carrito) {
-				if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
-					detalle.setCantidad(detalle.getCantidad() + 1);
-					detalle.calcularSubtotal();
-					break;
-				}
-			}
-		} else if ("decrementar".equals(accion)) {
-			// Lógica de decrementar
-			Iterator<modelo.entidades.DetallePedido> iterator = carrito.iterator();
-			while (iterator.hasNext()) {
-				modelo.entidades.DetallePedido detalle = iterator.next();
-				if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
-					if (detalle.getCantidad() > 1) {
-						detalle.setCantidad(detalle.getCantidad() - 1);
-						detalle.calcularSubtotal();
-					} else {
-						iterator.remove();
-					}
-					break;
-				}
+		if (pedidoActual == null) {
+			resp.sendRedirect("PedidosController?ruta=mostrarMenu");
+			return;
+		}
+
+		// Calcular nueva cantidad
+		int nuevaCantidad = 0;
+		for (modelo.entidades.DetallePedido detalle : pedidoActual.getDetalles()) {
+			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
+				nuevaCantidad = detalle.getCantidad();
+				break;
 			}
 		}
 
-		session.setAttribute("carrito", carrito);
+		if ("incrementar".equals(accion)) {
+			nuevaCantidad++;
+		} else if ("decrementar".equals(accion)) {
+			nuevaCantidad--;
+		}
+
+		// Pedido maneja la modificación y recalcula total
+		pedidoActual.modificarCantidadDetalle(idPlato, nuevaCantidad);
+
+		session.setAttribute("pedidoEnCurso", pedidoActual);
 		resp.sendRedirect("PedidosController?ruta=mostrarResumenPedido");
 	}
 
 	private void eliminarPlato(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		int idPlato = Integer.parseInt(req.getParameter("idPlato"));
+
 		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
+		modelo.entidades.Pedido pedidoActual = (modelo.entidades.Pedido) session.getAttribute("pedidoEnCurso");
 
-		carrito.removeIf(detalle -> detalle.getPlatoMenu().getIdPlatoMenu() == idPlato);
+		if (pedidoActual != null) {
+			pedidoActual.eliminarDetalle(idPlato); // Encapsulado
+			session.setAttribute("pedidoEnCurso", pedidoActual);
+		}
 
-		session.setAttribute("carrito", carrito);
 		resp.sendRedirect("PedidosController?ruta=mostrarResumenPedido");
 	}
 
 	private void confirmarPedido(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		List<modelo.entidades.DetallePedido> carrito = (List<modelo.entidades.DetallePedido>) session
-				.getAttribute("carrito");
+		modelo.entidades.Pedido pedidoActual = (modelo.entidades.Pedido) session.getAttribute("pedidoEnCurso");
 
-		if (carrito == null || carrito.isEmpty()) {
+		if (pedidoActual == null || pedidoActual.estaVacio()) {
 			resp.sendRedirect("PedidosController?ruta=mostrarMenu");
 			return;
 		}
 
-		// 1. Crear nuevo pedido
-		modelo.entidades.Pedido nuevoPedido = new modelo.entidades.Pedido();
-		nuevoPedido.setEstadoPedido(modelo.entidades.EstadoPedido.PENDIENTE);
-		nuevoPedido.setFechaCreacion(new Date());
+		// Pedido YA tiene todo configurado:
+		// - detalles agregados
+		// - subtotales calculados
+		// - total calculado
 
-		// 2. Calcular total usando método de negocio
-		double total = nuevoPedido.calcularTotal(carrito);
-		nuevoPedido.setTotalPedido(total);
-
-		// 3. Generar número de atención
+		// 1. Generar número de atención
 		modelo.dao.PedidoDAO pedidoDAO = new modelo.dao.PedidoDAO();
 		int ultimoNumero = pedidoDAO.obtenerUltimoNumeroPedido();
 		String nroAtencion = modelo.entidades.Pedido.generarNroAtencion(ultimoNumero);
-		nuevoPedido.setNroPedido(nroAtencion);
+		pedidoActual.setNroPedido(nroAtencion);
 
-		// 4. Asociar detalles al pedido
-		for (modelo.entidades.DetallePedido detalle : carrito) {
-			detalle.setPedido(nuevoPedido);
+		// 2. Asegurar relaciones bidireccionales
+		for (modelo.entidades.DetallePedido detalle : pedidoActual.getDetalles()) {
+			detalle.setPedido(pedidoActual);
 		}
-		nuevoPedido.setDetalles(carrito);
 
-		// 5. Guardar en base de datos
-		pedidoDAO.guardarPedido(nuevoPedido);
+		// 3. Guardar en BD
+		pedidoDAO.guardarPedido(pedidoActual);
 
-		// 6. Limpiar carrito de la sesión
-		session.removeAttribute("carrito");
+		// 4. Limpiar sesión
+		session.removeAttribute("pedidoEnCurso");
 
-		// 7. Enviar pedido a la vista de confirmación
-		req.setAttribute("pedido", nuevoPedido);
+		// 5. Mostrar confirmación
+		req.setAttribute("pedido", pedidoActual);
 		req.getRequestDispatcher("jsp/PanelPedidoConfirmado.jsp").forward(req, resp);
 	}
 

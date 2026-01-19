@@ -123,6 +123,90 @@ public class Pedido implements Serializable {
 		return String.format("PD-%04d", siguienteNumero);
 	}
 
+	/**
+	 * Calcula el total del pedido sumando subtotales de detalles
+	 * Sobrecarga para usar la lista interna del pedido
+	 * 
+	 * @return Total del pedido
+	 */
+	public double calcularTotal() {
+		return this.calcularTotal(this.detalles);
+	}
+
+	/**
+	 * Agrega un detalle al pedido y recalcula el total
+	 * Si el plato ya existe en el pedido, incrementa su cantidad
+	 * 
+	 * @param nuevoDetalle Detalle a agregar
+	 */
+	public void agregarDetalle(DetallePedido nuevoDetalle) {
+		// Buscar si ya existe el plato
+		boolean existe = false;
+		for (DetallePedido detalle : this.detalles) {
+			if (detalle.getPlatoMenu().getIdPlatoMenu() == nuevoDetalle.getPlatoMenu().getIdPlatoMenu()) {
+				// Incrementar cantidad
+				detalle.setCantidad(detalle.getCantidad() + nuevoDetalle.getCantidad());
+				detalle.calcularSubtotal();
+				existe = true;
+				break;
+			}
+		}
+
+		// Si no existe, agregarlo
+		if (!existe) {
+			nuevoDetalle.setPedido(this);
+			this.detalles.add(nuevoDetalle);
+		}
+
+		// Recalcular total automáticamente
+		this.totalPedido = this.calcularTotal();
+	}
+
+	/**
+	 * Modifica la cantidad de un detalle específico
+	 * 
+	 * @param idPlato       ID del plato a modificar
+	 * @param nuevaCantidad Nueva cantidad
+	 * @return true si se modificó, false si no se encontró
+	 */
+	public boolean modificarCantidadDetalle(int idPlato, int nuevaCantidad) {
+		for (DetallePedido detalle : this.detalles) {
+			if (detalle.getPlatoMenu().getIdPlatoMenu() == idPlato) {
+				if (nuevaCantidad <= 0) {
+					this.detalles.remove(detalle);
+				} else {
+					detalle.setCantidad(nuevaCantidad);
+					detalle.calcularSubtotal();
+				}
+				this.totalPedido = this.calcularTotal();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Elimina un detalle del pedido
+	 * 
+	 * @param idPlato ID del plato a eliminar
+	 * @return true si se eliminó, false si no se encontró
+	 */
+	public boolean eliminarDetalle(int idPlato) {
+		boolean eliminado = this.detalles.removeIf(
+				detalle -> detalle.getPlatoMenu().getIdPlatoMenu() == idPlato);
+		if (eliminado) {
+			this.totalPedido = this.calcularTotal();
+		}
+		return eliminado;
+	}
+
+	/**
+	 * Verifica si el pedido está vacío
+	 */
+	public boolean estaVacio() {
+		return this.detalles == null || this.detalles.isEmpty();
+	}
+
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", nroPedido=" + nroPedido + ", fechaCreacion=" + fechaCreacion

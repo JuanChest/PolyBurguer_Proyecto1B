@@ -88,7 +88,7 @@
                                                             <label class="switch">
                                                                 <input type="checkbox" ${c.estado=='ACTIVO' ? 'checked'
                                                                     : '' }
-                                                                    onchange="cambiarEstadoUsuario(${c.id}, this.checked)">
+                                                                    onchange="cambiarEstadoUsuario(${c.id}, this.checked);">
                                                                 <span class="slider round"></span>
                                                             </label>
                                                         </div>

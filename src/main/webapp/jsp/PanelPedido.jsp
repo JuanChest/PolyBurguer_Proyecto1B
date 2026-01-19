@@ -40,7 +40,7 @@
                         <hr>
 
                         <c:choose>
-                            <c:when test="${empty carrito}">
+                            <c:when test="${empty pedido.detalles}">
                                 <div style="text-align: center; padding: 40px;">
                                     <p class="h4 gris-texto">Tu carrito está vacío</p>
                                     <a href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarMenu"
@@ -51,7 +51,7 @@
                             </c:when>
                             <c:otherwise>
                                 <div>
-                                    <c:forEach var="detalle" items="${carrito}">
+                                    <c:forEach var="detalle" items="${pedido.detalles}">
                                         <div class="producto-carrito">
                                             <img src="${pageContext.request.contextPath}/img/platos/${detalle.platoMenu.imagen}"
                                                 alt="${detalle.platoMenu.nombre}"
@@ -99,23 +99,10 @@
                                 <hr>
 
                                 <div class="resumen-orden">
-                                    <div class="p-t-0 p-b-0 m-t-0 m-b-0 gris-texto">
-                                        <p class="p-t-0 p-b-0 m-t-1 m-b-0">Subtotal</p>
-                                        <p class="p-t-0 p-b-0 m-t-1 m-b-0">$
-                                            <fmt:formatNumber value="${subtotal}" pattern="#,##0.00" />
-                                        </p>
-                                    </div>
-                                    <div class="p-t-0 p-b-0 m-t-0 m-b-0 gris-texto">
-                                        <p class="p-t-0 p-b-0 m-t-1 m-b-1">Impuesto (15%)</p>
-                                        <p class="p-t-0 p-b-0 m-t-1 m-b-1">$
-                                            <fmt:formatNumber value="${impuesto}" pattern="#,##0.00" />
-                                        </p>
-                                    </div>
-                                    <hr>
                                     <div class="p-t-1">
                                         <h3 class="m-0">Total</h3>
                                         <h3 class="m-0 rojo-texto">$
-                                            <fmt:formatNumber value="${total}" pattern="#,##0.00" />
+                                            <fmt:formatNumber value="${pedido.totalPedido}" pattern="#,##0.00" />
                                         </h3>
                                     </div>
                                 </div>

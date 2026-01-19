@@ -141,7 +141,8 @@
 
                 <a href="${pageContext.request.contextPath}/PedidosController?ruta=mostrarResumenPedido"
                     class="boton-flotante boton amarillo-bg negro-texto borde-redondeado texto-none">
-                    Ver Carrito <span class="contador">${not empty sessionScope.carrito ? sessionScope.carrito.size() :
+                    Ver Carrito <span class="contador">${not empty sessionScope.pedidoEnCurso ?
+                        sessionScope.pedidoEnCurso.detalles.size() :
                         0}</span>
                 </a>
                 <script>
