@@ -18,10 +18,11 @@ public class PlatoMenuDAO {
 	}
 
 	public List<PlatoMenu> obtenerPlatos() {
-		String sentenciaJPQL = "SELECT p FROM PlatoMenu p ORDER BY p.categoria, p.nombre";
-		Query query = em.createQuery(sentenciaJPQL);
-		List<PlatoMenu> platos = query.getResultList();
-		return platos;
+	    em.clear(); 
+	    String sentenciaJPQL = "SELECT p FROM PlatoMenu p ORDER BY p.categoria, p.nombre";
+	    Query query = em.createQuery(sentenciaJPQL);
+	    List<PlatoMenu> platos = query.getResultList();
+	    return platos;
 	}
 
 	public PlatoMenu obtenerPlato(int id) {
