@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
 
         switch (ruta) {
             case "mostrarFormulario":
-                this.mostrarFormulario(req, resp);
+                this.solicitarAcceso(req, resp);
                 break;
             case "autenticar":
                 this.autenticar(req, resp);
@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
                 this.cerrarSesion(req, resp);
                 break;
             default:
-                this.mostrarFormulario(req, resp);
+                this.solicitarAcceso(req, resp);
                 break;
         }
     }
@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
     /**
      * Muestra el formulario de login
      */
-    private void mostrarFormulario(HttpServletRequest req, HttpServletResponse resp)
+    private void solicitarAcceso(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("jsp/Login.jsp").forward(req, resp);
     }
@@ -92,16 +92,15 @@ public class LoginController extends HttpServlet {
         session.setAttribute("usuarioAutenticado", usuario);
         session.setAttribute("nombreUsuario", usuario.getNombre() + " " + usuario.getApellido());
 
-        // 4. Determinar rol y redirigir
-        String rol = usuarioDAO.determinarRol(usuario);
-        session.setAttribute("rolUsuario", rol);
-
-        if ("COCINERO".equals(rol)) {
+        // 4. Redirigir según tipo de usuario (usando instanceof)
+        if (usuario instanceof modelo.entidades.Cocinero) {
+            session.setAttribute("rolUsuario", "COCINERO");
             this.redirigirCocinero(req, resp);
-        } else if ("ADMINISTRADOR".equals(rol)) {
+        } else if (usuario instanceof modelo.entidades.Administrador) {
+            session.setAttribute("rolUsuario", "ADMINISTRADOR");
             this.redirigirAdministrador(req, resp);
         } else {
-            // Rol desconocido
+            // Rol desconocido (no debería ocurrir con la estructura actual)
             session.setAttribute("mensaje", "Rol de usuario no reconocido");
             session.setAttribute("tipoMensaje", "error");
             resp.sendRedirect("LoginController?ruta=mostrarFormulario");

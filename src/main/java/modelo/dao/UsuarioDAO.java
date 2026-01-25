@@ -4,8 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
-import modelo.entidades.Administrador;
-import modelo.entidades.Cocinero;
 import modelo.entidades.EstadoUsuario;
 import modelo.entidades.Usuario;
 
@@ -46,20 +44,5 @@ public class UsuarioDAO {
      */
     public boolean esCuentaActiva(Usuario usuario) {
         return usuario != null && usuario.getEstado() == EstadoUsuario.ACTIVO;
-    }
-
-    /**
-     * Determina el rol del usuario
-     *
-     * @param usuario Usuario autenticado
-     * @return "COCINERO" o "ADMINISTRADOR"
-     */
-    public String determinarRol(Usuario usuario) {
-        if (usuario instanceof Cocinero) {
-            return "COCINERO";
-        } else if (usuario instanceof Administrador) {
-            return "ADMINISTRADOR";
-        }
-        return "DESCONOCIDO";
     }
 }
